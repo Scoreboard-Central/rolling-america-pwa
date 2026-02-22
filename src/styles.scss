@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply m-0 p-0 font-sans bg-gray-100 flex justify-center items-center min-h-screen select-none;
+    }
+}
+
+.wave-bg {
+    background-color: #E6EEED;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='20' viewBox='0 0 60 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 15 20, 30 10 T 60 10' fill='none' stroke='%23C1D0D0' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 60px 20px;
+    background-repeat: repeat;
+}
+
+.scorecard-container {
+    @apply relative w-full h-full max-w-[1200px] max-h-[100dvh] flex flex-col bg-white overflow-hidden shadow-2xl sm:rounded-2xl border-slate-300 sm:border-2 mx-auto;
+}
+
+.input-box {
+    @apply w-10 h-10 border-2 border-slate-500 bg-white text-center font-bold text-xl text-slate-800 outline-none focus:border-blue-500 rounded-sm;
+}
+
+.input-box-large {
+    @apply w-16 h-16 border-2 border-slate-500 bg-white text-center font-bold text-4xl text-slate-800 outline-none focus:border-blue-500 rounded-sm;
+}

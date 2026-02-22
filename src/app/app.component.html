@@ -1,0 +1,925 @@
+<div class="wave-bg h-[100dvh] w-screen overflow-hidden flex flex-row items-center justify-center sm:p-2">
+  <div class="w-full h-full flex flex-row bg-white overflow-hidden shadow-2xl sm:border-2 border-slate-300">
+
+    <!-- LEFT SIDEBAR -->
+    <div
+      class="w-[80px] sm:w-[100px] lg:w-[8%] h-full flex flex-col items-center justify-around px-1 py-4 bg-slate-50 border-r-2 border-slate-200 flex-shrink-0 z-10">
+
+      <!-- Round -->
+      <div class="flex flex-col items-center text-center mt-2">
+        <span class="text-slate-500 font-bold tracking-wide text-[9px] mb-1">ROUND</span>
+        <div
+          class="flex flex-wrap justify-center border-[2px] border-slate-600 rounded-sm overflow-hidden bg-white w-[50px] sm:w-[65px] lg:w-[90px]">
+          @for (r of [1,2,3,4,5,6,7,8]; track r) {
+          <div
+            class="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px] lg:w-[40px] lg:h-[40px] flex items-center justify-center border-r-[1px] border-b-[1px] border-slate-600 font-bold text-slate-700 text-[10px] sm:text-sm cursor-pointer hover:bg-slate-100 transition-colors select-none relative"
+            (click)="toggleRound(r-1)">
+            {{r}}
+            @if (rounds[r-1]) {
+            <div class="absolute inset-0 pointer-events-none text-red-600">
+              <svg width="100%" height="100%" class="opacity-90">
+                <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" stroke-width="2.5" />
+              </svg>
+            </div>
+            }
+          </div>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MAP AREA (Main Focus) -->
+    <div class="flex-grow flex flex-col justify-center items-center p-1 sm:p-2 lg:p-4 min-w-0 bg-white relative">
+      <!-- Title (Centered) -->
+      <div class="flex flex-col items-center text-center w-full mb-[-5px] sm:mb-[-15px] z-10">
+        <h1
+          class="text-lg sm:text-2xl lg:text-4xl font-bold tracking-widest text-[#414E69] mb-0 font-['Century_Gothic'] leading-tight">
+          ROLLING AMERICA</h1>
+      </div>
+
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full max-h-full" width="646" height="408" viewBox="0 0 646 408">
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'IL')">
+    <rect x="340" y="102" width="34" height="34" fill="#85BBEA" />
+    <line x1="340" y1="102" x2="374" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="136" x2="374" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="102" x2="340" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="102" x2="374" y2="136" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['IL']) {
+      <circle cx="357.0" cy="121.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="357.0" y="121.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['IL'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'WY')">
+    <rect x="238" y="102" width="34" height="34" fill="#9ACC99" />
+    <rect x="238" y="136" width="34" height="34" fill="#9ACC99" />
+    <line x1="238" y1="102" x2="272" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="102" x2="238" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="102" x2="272" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="170" x2="272" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="136" x2="238" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="136" x2="272" y2="170" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['WY']) {
+      <circle cx="255.0" cy="138.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="255.0" y="138.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['WY'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'FL')">
+    <rect x="340" y="340" width="34" height="34" fill="#F4D075" />
+    <rect x="374" y="340" width="34" height="34" fill="#F4D075" />
+    <rect x="408" y="340" width="34" height="34" fill="#F4D075" />
+    <line x1="340" y1="340" x2="374" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="374" x2="374" y2="374" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="340" x2="340" y2="374" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="340" x2="408" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="374" x2="408" y2="374" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="340" x2="442" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="374" x2="442" y2="374" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="340" x2="442" y2="374" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['FL']) {
+      <circle cx="391.0" cy="359.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="391.0" y="359.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['FL'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'CA')">
+    <rect x="136" y="136" width="34" height="34" fill="#F4B384" />
+    <rect x="136" y="170" width="34" height="34" fill="#F4B384" />
+    <rect x="170" y="170" width="34" height="34" fill="#F4B384" />
+    <rect x="136" y="204" width="34" height="34" fill="#F4B384" />
+    <rect x="170" y="204" width="34" height="34" fill="#F4B384" />
+    <rect x="136" y="238" width="34" height="34" fill="#F4B384" />
+    <rect x="170" y="238" width="34" height="34" fill="#F4B384" />
+    <line x1="136" y1="136" x2="170" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="136" x2="136" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="136" x2="170" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="170" x2="136" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="170" x2="204" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="170" x2="204" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="204" x2="136" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="204" x2="204" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="272" x2="170" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="238" x2="136" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="272" x2="204" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="238" x2="204" y2="272" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['CA']) {
+      <circle cx="167.57142857142858" cy="213.28571428571428" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="167.57142857142858" y="213.28571428571428" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['CA'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'MS')">
+    <rect x="408" y="204" width="34" height="34" fill="#F4D075" />
+    <line x1="408" y1="204" x2="442" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="238" x2="442" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="204" x2="408" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="204" x2="442" y2="238" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['MS']) {
+      <circle cx="425.0" cy="223.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="425.0" y="223.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['MS'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'MA')">
+    <rect x="442" y="102" width="34" height="34" fill="#A4A6D5" />
+    <rect x="476" y="102" width="34" height="34" fill="#A4A6D5" />
+    <rect x="510" y="102" width="34" height="34" fill="#A4A6D5" />
+    <rect x="544" y="102" width="34" height="34" fill="#A4A6D5" />
+    <line x1="442" y1="102" x2="476" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="136" x2="476" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="102" x2="442" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="102" x2="510" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="136" x2="510" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="102" x2="544" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="136" x2="544" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="102" x2="578" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="136" x2="578" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="102" x2="578" y2="136" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['MA']) {
+      <circle cx="510.0" cy="121.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="510.0" y="121.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['MA'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'OR')">
+    <rect x="136" y="68" width="34" height="34" fill="#F4B384" />
+    <rect x="136" y="102" width="34" height="34" fill="#F4B384" />
+    <line x1="136" y1="68" x2="170" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="68" x2="136" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="68" x2="170" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="136" x2="170" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="102" x2="136" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="102" x2="170" y2="136" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['OR']) {
+      <circle cx="153.0" cy="104.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="153.0" y="104.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['OR'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'CT')">
+    <rect x="442" y="136" width="34" height="34" fill="#A4A6D5" />
+    <rect x="476" y="136" width="34" height="34" fill="#A4A6D5" />
+    <rect x="510" y="136" width="34" height="34" fill="#A4A6D5" />
+    <rect x="442" y="170" width="34" height="34" fill="#A4A6D5" />
+    <line x1="442" y1="136" x2="476" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="136" x2="442" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="136" x2="510" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="170" x2="510" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="136" x2="544" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="170" x2="544" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="136" x2="544" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="204" x2="476" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="170" x2="442" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="170" x2="476" y2="204" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['CT']) {
+      <circle cx="484.5" cy="163.5" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="484.5" y="163.5" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['CT'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'IN')">
+    <rect x="340" y="136" width="34" height="34" fill="#85BBEA" />
+    <rect x="340" y="170" width="34" height="34" fill="#85BBEA" />
+    <line x1="340" y1="136" x2="374" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="136" x2="340" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="136" x2="374" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="204" x2="374" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="170" x2="340" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="170" x2="374" y2="204" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['IN']) {
+      <circle cx="357.0" cy="172.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="357.0" y="172.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['IN'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'CO')">
+    <rect x="238" y="170" width="34" height="34" fill="#9ACC99" />
+    <rect x="272" y="170" width="34" height="34" fill="#9ACC99" />
+    <line x1="238" y1="170" x2="272" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="204" x2="272" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="170" x2="238" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="170" x2="306" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="204" x2="306" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="170" x2="306" y2="204" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['CO']) {
+      <circle cx="272.0" cy="189.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="272.0" y="189.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['CO'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'NC')">
+    <rect x="544" y="238" width="34" height="34" fill="#F29C9C" />
+    <line x1="544" y1="238" x2="578" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="272" x2="578" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="238" x2="544" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="238" x2="578" y2="272" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['NC']) {
+      <circle cx="561.0" cy="257.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="561.0" y="257.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['NC'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'AK')">
+    <rect x="34" y="34" width="34" height="34" fill="#F4B384" />
+    <rect x="68" y="34" width="34" height="34" fill="#F4B384" />
+    <rect x="34" y="68" width="34" height="34" fill="#F4B384" />
+    <rect x="68" y="68" width="34" height="34" fill="#F4B384" />
+    <line x1="34" y1="34" x2="68" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="34" y1="34" x2="34" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="68" y1="34" x2="102" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="102" y1="34" x2="102" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="34" y1="102" x2="68" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="34" y1="68" x2="34" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="68" y1="102" x2="102" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="102" y1="68" x2="102" y2="102" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['AK']) {
+      <circle cx="68.0" cy="70.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="68.0" y="70.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['AK'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'MT')">
+    <rect x="238" y="34" width="34" height="34" fill="#85BBEA" />
+    <line x1="238" y1="34" x2="272" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="68" x2="272" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="34" x2="238" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="34" x2="272" y2="68" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['MT']) {
+      <circle cx="255.0" cy="53.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="255.0" y="53.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['MT'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'UT')">
+    <rect x="204" y="68" width="34" height="34" fill="#F4B384" />
+    <rect x="204" y="102" width="34" height="34" fill="#F4B384" />
+    <line x1="204" y1="68" x2="238" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="68" x2="204" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="68" x2="238" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="136" x2="238" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="102" x2="204" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="102" x2="238" y2="136" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['UT']) {
+      <circle cx="221.0" cy="104.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="221.0" y="104.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['UT'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'NV')">
+    <rect x="170" y="102" width="34" height="34" fill="#F4B384" />
+    <rect x="170" y="136" width="34" height="34" fill="#F4B384" />
+    <line x1="170" y1="102" x2="204" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="102" x2="170" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="102" x2="204" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="170" x2="204" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="136" x2="170" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="136" x2="204" y2="170" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['NV']) {
+      <circle cx="187.0" cy="138.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="187.0" y="138.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['NV'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'AZ')">
+    <rect x="204" y="136" width="34" height="34" fill="#F4B384" />
+    <rect x="204" y="170" width="34" height="34" fill="#F4B384" />
+    <rect x="204" y="204" width="34" height="34" fill="#F4B384" />
+    <rect x="204" y="238" width="34" height="34" fill="#F4B384" />
+    <line x1="204" y1="136" x2="238" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="136" x2="204" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="136" x2="238" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="170" x2="204" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="170" x2="238" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="204" x2="204" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="204" x2="238" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="272" x2="238" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="238" x2="204" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="238" x2="238" y2="272" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['AZ']) {
+      <circle cx="221.0" cy="206.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="221.0" y="206.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['AZ'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'AR')">
+    <rect x="306" y="238" width="34" height="34" fill="#F4D075" />
+    <rect x="306" y="272" width="34" height="34" fill="#F4D075" />
+    <rect x="340" y="272" width="34" height="34" fill="#F4D075" />
+    <rect x="374" y="272" width="34" height="34" fill="#F4D075" />
+    <rect x="306" y="306" width="34" height="34" fill="#F4D075" />
+    <rect x="340" y="306" width="34" height="34" fill="#F4D075" />
+    <rect x="374" y="306" width="34" height="34" fill="#F4D075" />
+    <line x1="306" y1="238" x2="340" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="238" x2="306" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="238" x2="340" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="272" x2="306" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="272" x2="374" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="272" x2="408" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="272" x2="408" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="340" x2="340" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="306" x2="306" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="340" x2="374" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="340" x2="408" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="306" x2="408" y2="340" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['AR']) {
+      <circle cx="352.14285714285717" cy="300.7142857142857" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="352.14285714285717" y="300.7142857142857" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['AR'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'WI')">
+    <rect x="374" y="34" width="34" height="34" fill="#85BBEA" />
+    <rect x="374" y="68" width="34" height="34" fill="#85BBEA" />
+    <rect x="374" y="102" width="34" height="34" fill="#85BBEA" />
+    <line x1="374" y1="34" x2="408" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="34" x2="374" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="34" x2="408" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="68" x2="374" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="68" x2="408" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="136" x2="408" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="102" x2="374" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="102" x2="408" y2="136" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['WI']) {
+      <circle cx="391.0" cy="87.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="391.0" y="87.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['WI'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'GA')">
+    <rect x="544" y="272" width="34" height="34" fill="#F29C9C" />
+    <rect x="578" y="272" width="34" height="34" fill="#F29C9C" />
+    <rect x="510" y="306" width="34" height="34" fill="#F29C9C" />
+    <rect x="544" y="306" width="34" height="34" fill="#F29C9C" />
+    <line x1="544" y1="272" x2="578" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="272" x2="544" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="272" x2="612" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="306" x2="612" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="612" y1="272" x2="612" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="306" x2="544" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="340" x2="544" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="306" x2="510" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="340" x2="578" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="306" x2="578" y2="340" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['GA']) {
+      <circle cx="561.0" cy="308.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="561.0" y="308.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['GA'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'NY')">
+    <rect x="408" y="34" width="34" height="34" fill="#A4A6D5" />
+    <rect x="408" y="68" width="34" height="34" fill="#A4A6D5" />
+    <rect x="408" y="102" width="34" height="34" fill="#A4A6D5" />
+    <rect x="408" y="136" width="34" height="34" fill="#A4A6D5" />
+    <line x1="408" y1="34" x2="442" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="34" x2="408" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="34" x2="442" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="68" x2="408" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="68" x2="442" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="102" x2="408" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="102" x2="442" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="170" x2="442" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="136" x2="408" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="136" x2="442" y2="170" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['NY']) {
+      <circle cx="425.0" cy="104.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="425.0" y="104.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['NY'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'LA')">
+    <rect x="340" y="204" width="34" height="34" fill="#F4D075" />
+    <line x1="340" y1="204" x2="374" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="238" x2="374" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="204" x2="340" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="204" x2="374" y2="238" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['LA']) {
+      <circle cx="357.0" cy="223.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="357.0" y="223.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['LA'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'RI')">
+    <rect x="544" y="136" width="34" height="34" fill="#A4A6D5" />
+    <line x1="544" y1="136" x2="578" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="170" x2="578" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="136" x2="544" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="136" x2="578" y2="170" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['RI']) {
+      <circle cx="561.0" cy="155.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="561.0" y="155.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['RI'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'SC')">
+    <rect x="476" y="272" width="34" height="34" fill="#F29C9C" />
+    <rect x="510" y="272" width="34" height="34" fill="#F29C9C" />
+    <line x1="476" y1="272" x2="510" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="306" x2="510" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="272" x2="476" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="272" x2="544" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="306" x2="544" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="272" x2="544" y2="306" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['SC']) {
+      <circle cx="510.0" cy="291.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="510.0" y="291.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['SC'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'MO')">
+    <rect x="340" y="238" width="34" height="34" fill="#F4D075" />
+    <line x1="340" y1="238" x2="374" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="272" x2="374" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="238" x2="340" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="238" x2="374" y2="272" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['MO']) {
+      <circle cx="357.0" cy="257.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="357.0" y="257.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['MO'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'OK')">
+    <rect x="272" y="204" width="34" height="34" fill="#9ACC99" />
+    <rect x="272" y="238" width="34" height="34" fill="#9ACC99" />
+    <line x1="272" y1="204" x2="306" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="204" x2="272" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="204" x2="306" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="272" x2="306" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="238" x2="272" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="238" x2="306" y2="272" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['OK']) {
+      <circle cx="289.0" cy="240.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="289.0" y="240.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['OK'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'MD')">
+    <rect x="544" y="204" width="34" height="34" fill="#F29C9C" />
+    <line x1="544" y1="204" x2="578" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="238" x2="578" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="204" x2="544" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="204" x2="578" y2="238" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['MD']) {
+      <circle cx="561.0" cy="223.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="561.0" y="223.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['MD'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'TN')">
+    <rect x="374" y="204" width="34" height="34" fill="#F4D075" />
+    <rect x="374" y="238" width="34" height="34" fill="#F4D075" />
+    <line x1="374" y1="204" x2="408" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="204" x2="374" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="204" x2="408" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="272" x2="408" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="238" x2="374" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="238" x2="408" y2="272" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['TN']) {
+      <circle cx="391.0" cy="240.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="391.0" y="240.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['TN'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'HI')">
+    <rect x="34" y="170" width="34" height="34" fill="#F4B384" />
+    <rect x="68" y="170" width="34" height="34" fill="#F4B384" />
+    <line x1="34" y1="170" x2="68" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="34" y1="204" x2="68" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="34" y1="170" x2="34" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="68" y1="170" x2="102" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="68" y1="204" x2="102" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="102" y1="170" x2="102" y2="204" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['HI']) {
+      <circle cx="68.0" cy="189.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="68.0" y="189.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['HI'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'NJ')">
+    <rect x="408" y="170" width="34" height="34" fill="#A4A6D5" />
+    <line x1="408" y1="170" x2="442" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="204" x2="442" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="170" x2="408" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="170" x2="442" y2="204" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['NJ']) {
+      <circle cx="425.0" cy="189.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="425.0" y="189.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['NJ'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'MI')">
+    <rect x="374" y="136" width="34" height="34" fill="#85BBEA" />
+    <rect x="374" y="170" width="34" height="34" fill="#85BBEA" />
+    <line x1="374" y1="136" x2="408" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="136" x2="374" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="136" x2="408" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="204" x2="408" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="170" x2="374" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="170" x2="408" y2="204" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['MI']) {
+      <circle cx="391.0" cy="172.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="391.0" y="172.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['MI'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'IA')">
+    <rect x="340" y="68" width="34" height="34" fill="#85BBEA" />
+    <line x1="340" y1="68" x2="374" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="102" x2="374" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="68" x2="340" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="68" x2="374" y2="102" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['IA']) {
+      <circle cx="357.0" cy="87.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="357.0" y="87.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['IA'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'VT')">
+    <rect x="442" y="34" width="34" height="34" fill="#A4A6D5" />
+    <rect x="476" y="34" width="34" height="34" fill="#A4A6D5" />
+    <rect x="442" y="68" width="34" height="34" fill="#A4A6D5" />
+    <rect x="476" y="68" width="34" height="34" fill="#A4A6D5" />
+    <line x1="442" y1="34" x2="476" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="34" x2="442" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="34" x2="510" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="34" x2="510" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="102" x2="476" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="68" x2="442" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="102" x2="510" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="68" x2="510" y2="102" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['VT']) {
+      <circle cx="476.0" cy="70.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="476.0" y="70.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['VT'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'NM')">
+    <rect x="238" y="204" width="34" height="34" fill="#9ACC99" />
+    <line x1="238" y1="204" x2="272" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="238" x2="272" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="204" x2="238" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="204" x2="272" y2="238" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['NM']) {
+      <circle cx="255.0" cy="223.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="255.0" y="223.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['NM'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'KS')">
+    <rect x="306" y="170" width="34" height="34" fill="#9ACC99" />
+    <rect x="306" y="204" width="34" height="34" fill="#9ACC99" />
+    <line x1="306" y1="170" x2="340" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="170" x2="306" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="170" x2="340" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="238" x2="340" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="204" x2="306" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="204" x2="340" y2="238" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['KS']) {
+      <circle cx="323.0" cy="206.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="323.0" y="206.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['KS'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'AL')">
+    <rect x="408" y="238" width="34" height="34" fill="#F4D075" />
+    <rect x="442" y="238" width="34" height="34" fill="#F4D075" />
+    <rect x="408" y="272" width="34" height="34" fill="#F4D075" />
+    <rect x="442" y="272" width="34" height="34" fill="#F4D075" />
+    <line x1="408" y1="238" x2="442" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="238" x2="408" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="238" x2="476" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="238" x2="476" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="306" x2="442" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="408" y1="272" x2="408" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="306" x2="476" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="272" x2="476" y2="306" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['AL']) {
+      <circle cx="442.0" cy="274.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="442.0" y="274.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['AL'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'ID')">
+    <rect x="170" y="34" width="34" height="34" fill="#F4B384" />
+    <rect x="204" y="34" width="34" height="34" fill="#F4B384" />
+    <rect x="170" y="68" width="34" height="34" fill="#F4B384" />
+    <line x1="170" y1="34" x2="204" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="34" x2="170" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="34" x2="238" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="68" x2="238" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="34" x2="238" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="102" x2="204" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="68" x2="170" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="204" y1="68" x2="204" y2="102" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['ID']) {
+      <circle cx="198.33333333333331" cy="64.33333333333333" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="198.33333333333331" y="64.33333333333333" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['ID'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'OH')">
+    <rect x="476" y="170" width="34" height="34" fill="#F29C9C" />
+    <line x1="476" y1="170" x2="510" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="204" x2="510" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="170" x2="476" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="170" x2="510" y2="204" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['OH']) {
+      <circle cx="493.0" cy="189.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="493.0" y="189.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['OH'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'WV')">
+    <rect x="476" y="204" width="34" height="34" fill="#F29C9C" />
+    <line x1="476" y1="204" x2="510" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="238" x2="510" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="204" x2="476" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="204" x2="510" y2="238" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['WV']) {
+      <circle cx="493.0" cy="223.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="493.0" y="223.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['WV'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'VA')">
+    <rect x="476" y="238" width="34" height="34" fill="#F29C9C" />
+    <rect x="510" y="238" width="34" height="34" fill="#F29C9C" />
+    <line x1="476" y1="238" x2="510" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="272" x2="510" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="238" x2="476" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="238" x2="544" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="272" x2="544" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="238" x2="544" y2="272" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['VA']) {
+      <circle cx="510.0" cy="257.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="510.0" y="257.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['VA'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'ME')">
+    <rect x="544" y="0" width="34" height="34" fill="#A4A6D5" />
+    <rect x="578" y="0" width="34" height="34" fill="#A4A6D5" />
+    <rect x="544" y="34" width="34" height="34" fill="#A4A6D5" />
+    <rect x="578" y="34" width="34" height="34" fill="#A4A6D5" />
+    <line x1="544" y1="0" x2="578" y2="0" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="0" x2="544" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="0" x2="612" y2="0" stroke="#334155" stroke-width="2" />
+    <line x1="612" y1="0" x2="612" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="68" x2="578" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="34" x2="544" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="68" x2="612" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="612" y1="34" x2="612" y2="68" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['ME']) {
+      <circle cx="578.0" cy="36.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="578.0" y="36.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['ME'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'ND')">
+    <rect x="272" y="34" width="34" height="34" fill="#85BBEA" />
+    <line x1="272" y1="34" x2="306" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="68" x2="306" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="34" x2="272" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="34" x2="306" y2="68" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['ND']) {
+      <circle cx="289.0" cy="53.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="289.0" y="53.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['ND'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'MN')">
+    <rect x="306" y="34" width="34" height="34" fill="#85BBEA" />
+    <rect x="340" y="34" width="34" height="34" fill="#85BBEA" />
+    <line x1="306" y1="34" x2="340" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="68" x2="340" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="34" x2="306" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="34" x2="374" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="68" x2="374" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="374" y1="34" x2="374" y2="68" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['MN']) {
+      <circle cx="340.0" cy="53.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="340.0" y="53.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['MN'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'KY')">
+    <rect x="442" y="204" width="34" height="34" fill="#F4D075" />
+    <line x1="442" y1="204" x2="476" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="238" x2="476" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="442" y1="204" x2="442" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="476" y1="204" x2="476" y2="238" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['KY']) {
+      <circle cx="459.0" cy="223.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="459.0" y="223.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['KY'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'NH')">
+    <rect x="510" y="34" width="34" height="34" fill="#A4A6D5" />
+    <rect x="510" y="68" width="34" height="34" fill="#A4A6D5" />
+    <rect x="544" y="68" width="34" height="34" fill="#A4A6D5" />
+    <line x1="510" y1="34" x2="544" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="34" x2="510" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="34" x2="544" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="102" x2="544" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="68" x2="510" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="68" x2="578" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="102" x2="578" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="68" x2="578" y2="102" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['NH']) {
+      <circle cx="538.3333333333334" cy="75.66666666666667" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="538.3333333333334" y="75.66666666666667" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['NH'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'DE')">
+    <rect x="544" y="170" width="34" height="34" fill="#F29C9C" />
+    <line x1="544" y1="170" x2="578" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="204" x2="578" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="170" x2="544" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="578" y1="170" x2="578" y2="204" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['DE']) {
+      <circle cx="561.0" cy="189.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="561.0" y="189.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['DE'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'WA')">
+    <rect x="136" y="34" width="34" height="34" fill="#F4B384" />
+    <line x1="136" y1="34" x2="170" y2="34" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="68" x2="170" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="136" y1="34" x2="136" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="170" y1="34" x2="170" y2="68" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['WA']) {
+      <circle cx="153.0" cy="53.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="153.0" y="53.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['WA'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'TX')">
+    <rect x="238" y="238" width="34" height="34" fill="#9ACC99" />
+    <rect x="238" y="272" width="34" height="34" fill="#9ACC99" />
+    <rect x="272" y="272" width="34" height="34" fill="#9ACC99" />
+    <rect x="238" y="306" width="34" height="34" fill="#9ACC99" />
+    <rect x="272" y="306" width="34" height="34" fill="#9ACC99" />
+    <line x1="238" y1="238" x2="272" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="238" x2="238" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="238" x2="272" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="272" x2="238" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="272" x2="306" y2="272" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="272" x2="306" y2="306" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="340" x2="272" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="306" x2="238" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="340" x2="306" y2="340" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="306" x2="306" y2="340" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['TX']) {
+      <circle cx="268.6" cy="297.79999999999995" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="268.6" y="297.79999999999995" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['TX'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'SD')">
+    <rect x="238" y="68" width="34" height="34" fill="#85BBEA" />
+    <rect x="272" y="68" width="34" height="34" fill="#85BBEA" />
+    <rect x="306" y="68" width="34" height="34" fill="#85BBEA" />
+    <line x1="238" y1="68" x2="272" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="102" x2="272" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="238" y1="68" x2="238" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="68" x2="306" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="102" x2="306" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="68" x2="340" y2="68" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="102" x2="340" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="68" x2="340" y2="102" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['SD']) {
+      <circle cx="289.0" cy="87.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="289.0" y="87.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['SD'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'NE')">
+    <rect x="272" y="102" width="34" height="34" fill="#9ACC99" />
+    <rect x="306" y="102" width="34" height="34" fill="#9ACC99" />
+    <rect x="272" y="136" width="34" height="34" fill="#9ACC99" />
+    <rect x="306" y="136" width="34" height="34" fill="#9ACC99" />
+    <line x1="272" y1="102" x2="306" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="102" x2="272" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="102" x2="340" y2="102" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="102" x2="340" y2="136" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="170" x2="306" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="272" y1="136" x2="272" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="306" y1="170" x2="340" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="340" y1="136" x2="340" y2="170" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['NE']) {
+      <circle cx="306.0" cy="138.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="306.0" y="138.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['NE'] }}</text>
+  </g>
+  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'PA')">
+    <rect x="510" y="170" width="34" height="34" fill="#F29C9C" />
+    <rect x="510" y="204" width="34" height="34" fill="#F29C9C" />
+    <line x1="510" y1="170" x2="544" y2="170" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="170" x2="510" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="170" x2="544" y2="204" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="238" x2="544" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="510" y1="204" x2="510" y2="238" stroke="#334155" stroke-width="2" />
+    <line x1="544" y1="204" x2="544" y2="238" stroke="#334155" stroke-width="2" />
+    @if (guardedStates['PA']) {
+      <circle cx="527.0" cy="206.0" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />
+    }
+    <text x="527.0" y="206.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{ stateData['PA'] }}</text>
+  </g>
+</svg>
+      <!-- Reset Button -->
+      <button
+        class="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 p-2 text-slate-400 hover:text-slate-700 transition-colors"
+        (click)="openResetModal()" title="Reset Game">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+          class="w-6 h-6 sm:w-8 sm:h-8">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div
+      class="w-[80px] sm:w-[100px] lg:w-[8%] h-full flex flex-col items-center justify-center p-2 bg-slate-50 border-l-2 border-slate-200 flex-shrink-0 z-10">
+      <!-- Abilities -->
+      <div class="flex flex-col gap-3 sm:gap-6 mt-4">
+        <!-- Color Change -->
+        <div class="flex flex-col items-center">
+          <span
+            class="text-[8px] sm:text-[10px] font-bold text-slate-600 tracking-wide mb-1 lowercase text-center">color
+            change</span>
+          <div class="flex gap-0.5 border-[2px] border-slate-600 rounded-sm p-0.5 bg-white">
+            @for (i of [1,2,3]; track i) {
+            <button
+              class="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border border-slate-400 flex items-center justify-center font-bold text-xs sm:text-sm outline-none hover:bg-slate-100 transition-colors"
+              (click)="toggleAbility('colorChange', i-1)">{{ abilities.colorChange[i-1] }}</button>
+            }
+          </div>
+        </div>
+        <!-- Guard -->
+        <div class="flex flex-col items-center">
+          <span
+            class="text-[8px] sm:text-[10px] font-bold text-slate-600 tracking-wide mb-1 lowercase text-center">guard</span>
+          <div class="flex gap-0.5 border-[2px] border-slate-600 rounded-sm p-0.5 bg-white">
+            @for (i of [1,2,3]; track i) {
+            <div
+              class="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border border-slate-400 flex items-center justify-center font-bold text-xs sm:text-sm bg-slate-50 cursor-default">
+              {{ abilities.guard[i-1] }}</div>
+            }
+          </div>
+        </div>
+        <!-- Dupe -->
+        <div class="flex flex-col items-center">
+          <span
+            class="text-[8px] sm:text-[10px] font-bold text-slate-600 tracking-wide mb-1 lowercase text-center">dupe</span>
+          <div class="flex gap-0.5 border-[2px] border-slate-600 rounded-sm p-0.5 bg-white">
+            @for (i of [1,2,3]; track i) {
+            <button
+              class="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border border-slate-400 flex items-center justify-center font-bold text-xs sm:text-sm outline-none hover:bg-slate-100 transition-colors"
+              (click)="toggleAbility('dupe', i-1)">{{ abilities.dupe[i-1] }}</button>
+            }
+          </div>
+        </div>
+      </div>
+      <!-- Xs -->
+      <div class="flex flex-col items-center mt-6">
+        <span class="text-[9px] sm:text-[11px] font-bold text-slate-600 tracking-wide mb-2 text-center lowercase">number
+          of <br>Xs</span>
+        <div
+          class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 border-[2px] border-slate-600 flex items-center justify-center font-bold text-xl sm:text-2xl lg:text-3xl text-slate-800 bg-slate-50 shadow-sm cursor-default">
+          {{ xsCount }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Input Modal (Overlay) -->
+  @if (isModalOpen) {
+  <div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4" (click)="closeModal()">
+    <div class="bg-white rounded-xl shadow-2xl p-6 border-[3px] border-slate-600 max-w-[320px] w-full"
+      (click)="$event.stopPropagation()">
+      <h2 class="text-center font-bold text-xl text-slate-700 mb-4 tracking-wide">SELECT VALUE</h2>
+
+      @if (currentEditTarget?.type === 'state') {
+      @if (guardsUsed < 3 || guardedStates[currentEditTarget!.key]) { <div
+        class="flex items-center justify-center mb-4">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" [(ngModel)]="isGuardChecked" class="w-5 h-5 cursor-pointer accent-slate-800">
+          <span class="font-bold text-slate-700 tracking-wide text-sm uppercase">Guard</span>
+        </label>
+    </div>
+    }
+    }
+
+    <div class="grid grid-cols-3 gap-3 mb-4">
+      @for (val of validOptions; track val) {
+      <button
+        class="h-14 bg-slate-100 border-2 border-slate-300 rounded-lg text-2xl font-black text-slate-800 hover:bg-blue-100 hover:border-blue-400 hover:text-blue-700 transition-all select-none active:scale-95 shadow-sm"
+        (click)="selectValue(val)">
+        {{ val }}
+      </button>
+      }
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <button
+        class="h-14 bg-slate-100 border-2 border-slate-300 rounded-lg text-2xl font-black text-red-600 hover:bg-red-50 hover:border-red-400 transition-all select-none active:scale-95 shadow-sm"
+        (click)="selectValue('X')">
+        X
+      </button>
+
+      <button
+        class="h-14 bg-slate-800 border-2 border-slate-900 rounded-lg text-lg font-bold text-white hover:bg-slate-700 transition-all select-none active:scale-95 shadow-sm flex items-center justify-center"
+        (click)="selectValue('Clear')">
+        CLEAR
+      </button>
+    </div>
+
+  </div>
+</div>
+}
+
+<!-- Reset Confirmation Modal -->
+@if (isResetModalOpen) {
+<div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4" (click)="closeResetModal()">
+  <div class="bg-white rounded-xl shadow-2xl p-6 border-[3px] border-slate-600 max-w-[320px] w-full"
+    (click)="$event.stopPropagation()">
+    <h2 class="text-center font-bold text-xl text-slate-700 mb-4 tracking-wide">RESET SCORECARD?</h2>
+    <p class="text-center text-slate-600 mb-6 font-medium leading-relaxed">Are you sure you want to clear all progress?
+      This cannot be undone.</p>
+
+    <div class="grid grid-cols-2 gap-3">
+      <button
+        class="h-12 bg-slate-100 border-2 border-slate-300 rounded-lg text-lg font-bold text-slate-700 hover:bg-slate-200 transition-all select-none active:scale-95 shadow-sm"
+        (click)="closeResetModal()">
+        CANCEL
+      </button>
+      <button
+        class="h-12 bg-red-600 border-2 border-red-700 rounded-lg text-lg font-bold text-white hover:bg-red-700 transition-all select-none active:scale-95 shadow-sm"
+        (click)="confirmReset()">
+        RESET
+      </button>
+    </div>
+  </div>
+</div>
+}
+
+</div>
