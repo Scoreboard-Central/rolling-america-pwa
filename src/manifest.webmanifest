@@ -1,6 +1,6 @@
 {
-  "name": "rolling-america-pwa",
-  "short_name": "rolling-america-pwa",
+  "name": "Rolling America Scorecard",
+  "short_name": "Rolling America",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
