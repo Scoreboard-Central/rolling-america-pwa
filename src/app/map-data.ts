@@ -52,308 +52,314 @@ export const stateColors: { [key: string]: string } = {
   "NJ": "ra-purple"
 };
 export const stateAdjacencies: { [key: string]: string[] } = {
+  "ME": [
+    "NH"
+  ],
+  "VT": [
+    "MA",
+    "NH",
+    "NY"
+  ],
+  "NH": [
+    "MA",
+    "ME",
+    "VT"
+  ],
   "AK": [],
-  "HI": [],
   "WA": [
-    "OR",
-    "ID"
-  ],
-  "OR": [
     "ID",
-    "NV",
-    "CA",
-    "WA"
-  ],
-  "ID": [
-    "NV",
-    "UT",
-    "WA",
-    "MT",
     "OR"
   ],
-  "UT": [
+  "ID": [
+    "MT",
     "NV",
-    "ID",
-    "SD",
-    "AZ",
-    "WY"
-  ],
-  "AZ": [
-    "CO",
-    "NV",
-    "UT",
-    "TX",
-    "NM",
-    "CA",
-    "WY"
-  ],
-  "NV": [
-    "UT",
-    "ID",
     "OR",
-    "AZ",
-    "CA"
-  ],
-  "CA": [
-    "OR",
-    "NV",
-    "AZ"
+    "UT",
+    "WA",
+    "WY"
   ],
   "MT": [
     "ID",
     "ND",
-    "SD"
+    "SD",
+    "WY"
   ],
   "ND": [
-    "MT",
-    "SD",
-    "MN"
-  ],
-  "SD": [
-    "WY",
-    "UT",
     "MN",
-    "IA",
     "MT",
-    "NE",
-    "ND"
+    "SD"
   ],
   "MN": [
     "IA",
-    "WI",
     "ND",
-    "SD"
-  ],
-  "IA": [
-    "WI",
-    "IL",
     "SD",
-    "MN"
+    "WI"
+  ],
+  "NY": [
+    "CT",
+    "MA",
+    "NJ",
+    "PA",
+    "VT"
   ],
   "WI": [
-    "MI",
-    "NY",
-    "MN",
+    "IA",
     "IL",
-    "IA"
+    "MI",
+    "MN"
+  ],
+  "MI": [
+    "IN",
+    "OH",
+    "WI"
+  ],
+  "MA": [
+    "CT",
+    "NH",
+    "NY",
+    "RI",
+    "VT"
+  ],
+  "OR": [
+    "CA",
+    "ID",
+    "NV",
+    "WA"
+  ],
+  "SD": [
+    "IA",
+    "MN",
+    "MT",
+    "ND",
+    "NE",
+    "WY"
+  ],
+  "CT": [
+    "MA",
+    "NJ",
+    "NY",
+    "RI"
+  ],
+  "RI": [
+    "CT",
+    "MA"
+  ],
+  "WY": [
+    "CO",
+    "ID",
+    "MT",
+    "NE",
+    "SD",
+    "UT"
+  ],
+  "IA": [
+    "IL",
+    "MN",
+    "MO",
+    "NE",
+    "SD",
+    "WI"
   ],
   "IL": [
     "IA",
     "IN",
-    "WI",
-    "NE"
+    "KY",
+    "MO",
+    "WI"
   ],
   "IN": [
-    "MI",
-    "LA",
-    "KS",
     "IL",
-    "NE"
+    "KY",
+    "MI",
+    "OH"
   ],
-  "MI": [
-    "WI",
-    "NY",
-    "TN",
+  "OH": [
     "IN",
-    "NJ"
+    "KY",
+    "MI",
+    "PA",
+    "WV"
   ],
-  "WY": [
-    "CO",
-    "UT",
-    "SD",
+  "PA": [
+    "DE",
+    "MD",
+    "NJ",
+    "NY",
+    "OH",
+    "VA",
+    "WV"
+  ],
+  "NJ": [
+    "CT",
+    "DE",
+    "NY",
+    "PA"
+  ],
+  "CA": [
     "AZ",
-    "NE"
+    "NV",
+    "OR"
+  ],
+  "NV": [
+    "AZ",
+    "CA",
+    "ID",
+    "OR",
+    "UT"
+  ],
+  "UT": [
+    "AZ",
+    "CO",
+    "ID",
+    "NV",
+    "WY"
   ],
   "NE": [
     "CO",
+    "IA",
     "KS",
-    "IN",
-    "IL",
+    "MO",
     "SD",
     "WY"
   ],
-  "KS": [
-    "CO",
-    "LA",
-    "OK",
-    "IN",
-    "NE",
-    "AR"
+  "DE": [
+    "MD",
+    "NJ",
+    "PA"
   ],
   "CO": [
-    "OK",
     "KS",
-    "NM",
-    "AZ",
     "NE",
+    "NM",
+    "OK",
+    "UT",
     "WY"
   ],
-  "NM": [
-    "CO",
-    "OK",
-    "TX",
-    "AZ"
-  ],
-  "OK": [
-    "CO",
-    "TX",
-    "KS",
-    "NM",
-    "AR"
-  ],
-  "TX": [
-    "AR",
-    "NM",
-    "OK",
-    "AZ"
-  ],
   "MO": [
-    "TN",
-    "LA",
-    "AR"
-  ],
-  "AR": [
-    "AL",
+    "AR",
+    "IA",
+    "IL",
+    "KS",
+    "KY",
+    "NE",
     "OK",
-    "TX",
-    "TN",
-    "KS",
-    "FL",
-    "MO"
-  ],
-  "LA": [
-    "KS",
-    "IN",
-    "MO",
     "TN"
   ],
-  "AL": [
-    "SC",
-    "KY",
-    "TN",
-    "MS",
-    "VA",
-    "AR"
-  ],
-  "TN": [
-    "MI",
-    "LA",
-    "AL",
-    "MS",
-    "AR",
-    "MO"
-  ],
-  "MS": [
-    "TN",
-    "AL",
-    "NJ",
-    "KY"
-  ],
-  "FL": [
-    "AR"
-  ],
   "KY": [
-    "MS",
-    "AL",
-    "CT",
-    "WV"
-  ],
-  "DE": [
-    "RI",
-    "PA",
-    "MD"
-  ],
-  "MD": [
-    "PA",
-    "DE",
-    "NC"
-  ],
-  "PA": [
-    "CT",
-    "MD",
-    "DE",
+    "IL",
+    "IN",
+    "MO",
     "OH",
+    "TN",
     "VA",
-    "WV"
-  ],
-  "OH": [
-    "PA",
-    "CT",
     "WV"
   ],
   "WV": [
-    "VA",
+    "KY",
     "OH",
     "PA",
-    "KY"
+    "VA"
   ],
   "VA": [
-    "SC",
-    "AL",
-    "PA",
+    "KY",
+    "MD",
     "NC",
+    "PA",
+    "TN",
     "WV"
   ],
-  "NC": [
-    "VA",
-    "GA",
-    "MD"
+  "MD": [
+    "DE",
+    "PA",
+    "VA"
   ],
-  "SC": [
-    "VA",
+  "KS": [
+    "CO",
+    "MO",
+    "NE",
+    "OK"
+  ],
+  "HI": [],
+  "AZ": [
+    "CA",
+    "NM",
+    "NV",
+    "UT"
+  ],
+  "NM": [
+    "AZ",
+    "CO",
+    "OK",
+    "TX"
+  ],
+  "OK": [
+    "AR",
+    "CO",
+    "KS",
+    "MO",
+    "NM",
+    "TX"
+  ],
+  "TN": [
     "AL",
-    "GA"
+    "AR",
+    "GA",
+    "KY",
+    "MO",
+    "MS",
+    "NC",
+    "VA"
+  ],
+  "NC": [
+    "GA",
+    "SC",
+    "TN",
+    "VA"
+  ],
+  "AR": [
+    "LA",
+    "MO",
+    "MS",
+    "OK",
+    "TN",
+    "TX"
+  ],
+  "TX": [
+    "AR",
+    "LA",
+    "NM",
+    "OK"
+  ],
+  "MS": [
+    "AL",
+    "AR",
+    "LA",
+    "TN"
+  ],
+  "AL": [
+    "FL",
+    "GA",
+    "MS",
+    "TN"
   ],
   "GA": [
+    "AL",
+    "FL",
+    "NC",
     "SC",
+    "TN"
+  ],
+  "SC": [
+    "GA",
     "NC"
   ],
-  "ME": [
-    "NH"
-  ],
-  "NH": [
-    "VT",
-    "ME",
-    "MA"
-  ],
-  "VT": [
-    "NH",
-    "MA",
-    "NY"
-  ],
-  "NY": [
-    "MI",
-    "WI",
-    "CT",
-    "MA",
-    "VT",
-    "NJ"
-  ],
-  "MA": [
-    "CT",
-    "NY",
-    "NH",
-    "RI",
-    "VT"
-  ],
-  "RI": [
-    "CT",
-    "DE",
-    "MA"
-  ],
-  "CT": [
-    "PA",
-    "NY",
-    "KY",
-    "MA",
-    "OH",
-    "RI",
-    "NJ"
-  ],
-  "NJ": [
+  "LA": [
+    "AR",
     "MS",
-    "CT",
-    "MI",
-    "NY"
+    "TX"
+  ],
+  "FL": [
+    "AL",
+    "GA"
   ]
 };
