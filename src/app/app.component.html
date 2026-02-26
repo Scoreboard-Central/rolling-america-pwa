@@ -659,10 +659,10 @@
           <line x1="744" y1="576" x2="744" y2="588" stroke="currentColor" class="text-slate-600 dark:text-slate-800"
             stroke-width="2" />
           @if (guardedStates['FL']) {
-          <circle cx="864.0" cy="464.0" r="15" fill="none" stroke="currentColor" class="text-slate-900"
+          <circle cx="726.0" cy="546.0" r="15" fill="none" stroke="currentColor" class="text-slate-900"
             stroke-width="2.5" />
           }
-          <text x="864.0" y="464.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900"
+          <text x="726.0" y="546.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900"
             fill="currentColor" class="text-slate-900">{{ stateData['FL'] }}</text>
         </g>
         <g class="state-TX cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'TX')">
@@ -3184,10 +3184,10 @@
           <line x1="300" y1="216" x2="300" y2="228" stroke="currentColor" class="text-slate-600 dark:text-slate-800"
             stroke-width="2" />
           @if (guardedStates['ID']) {
-          <circle cx="432.0" cy="188.0" r="15" fill="none" stroke="currentColor" class="text-slate-900"
+          <circle cx="246.0" cy="150.0" r="15" fill="none" stroke="currentColor" class="text-slate-900"
             stroke-width="2.5" />
           }
-          <text x="432.0" y="188.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900"
+          <text x="246.0" y="150.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900"
             fill="currentColor" class="text-slate-900">{{ stateData['ID'] }}</text>
         </g>
         <g class="state-KS cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'KS')">
@@ -3451,10 +3451,10 @@
           <line x1="828" y1="336" x2="828" y2="348" stroke="currentColor" class="text-slate-600 dark:text-slate-800"
             stroke-width="2" />
           @if (guardedStates['VA']) {
-          <circle cx="924.0" cy="308.0" r="15" fill="none" stroke="currentColor" class="text-slate-900"
+          <circle cx="762.0" cy="330.0" r="15" fill="none" stroke="currentColor" class="text-slate-900"
             stroke-width="2.5" />
           }
-          <text x="924.0" y="308.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900"
+          <text x="762.0" y="330.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900"
             fill="currentColor" class="text-slate-900">{{ stateData['VA'] }}</text>
         </g>
         <g class="state-NM cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'NM')">
@@ -4899,10 +4899,10 @@
           <line x1="228" y1="372" x2="228" y2="384" stroke="currentColor" class="text-slate-600 dark:text-slate-800"
             stroke-width="2" />
           @if (guardedStates['CA']) {
-          <circle cx="324.0" cy="260.0" r="15" fill="none" stroke="currentColor" class="text-slate-900"
+          <circle cx="156.0" cy="282.0" r="15" fill="none" stroke="currentColor" class="text-slate-900"
             stroke-width="2.5" />
           }
-          <text x="324.0" y="260.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900"
+          <text x="156.0" y="282.0" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900"
             fill="currentColor" class="text-slate-900">{{ stateData['CA'] }}</text>
         </g>
         <g class="state-WV cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', 'WV')">
@@ -5309,6 +5309,16 @@
     <div
       class="flex flex-col gap-4 mb-6 p-4 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg">
       <div class="flex items-center justify-between">
+        <span class="font-bold text-slate-600 dark:text-slate-300 text-sm tracking-wide">SOLO GAME?</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" [(ngModel)]="isSoloGame" class="sr-only peer">
+          <div
+            class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-slate-600 peer-checked:bg-purple-600">
+          </div>
+        </label>
+      </div>
+      @if (!isSoloGame) {
+      <div class="flex items-center justify-between">
         <span class="font-bold text-slate-600 dark:text-slate-300 text-sm tracking-wide">GAME WON?</span>
         <div class="flex gap-2 font-bold text-sm">
           <button class="px-3 py-1 rounded transition-colors" [class.bg-red-500]="!gameWon"
@@ -5320,6 +5330,7 @@
             (click)="gameWon = true">YES</button>
         </div>
       </div>
+      }
       <div class="flex items-center justify-between">
         <span class="font-bold text-slate-600 dark:text-slate-300 text-sm tracking-wide">SAVE TO HISTORY</span>
         <label class="relative inline-flex items-center cursor-pointer">
@@ -5389,42 +5400,80 @@
 <div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4"
   (click)="closeHistoryModal()">
   <div
-    class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-6 border-[3px] border-slate-600 dark:border-slate-500 max-w-[400px] w-full max-h-[80vh] flex flex-col"
+    class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-4 border-[3px] border-slate-600 dark:border-slate-500 max-w-[400px] w-full max-h-[80vh] flex flex-col"
     (click)="$event.stopPropagation()">
-    <h2 class="text-center font-bold text-xl text-slate-900 dark:text-slate-200 tracking-wide">SCORE HISTORY</h2>
-    <div class="text-center text-sm font-bold text-slate-500 dark:text-slate-400 mb-4">
+    <h2 class="text-center font-bold text-lg text-slate-900 dark:text-slate-200 tracking-wide mb-3">SCORE HISTORY</h2>
+
+    <div class="flex bg-slate-100 dark:bg-slate-700 rounded-lg p-0.5 mb-3">
+      <button class="flex-1 py-1 text-xs font-bold rounded-md transition-all" [class.bg-white]="historyTab === 'group'"
+        [class.dark:bg-slate-600]="historyTab === 'group'" [class.text-slate-900]="historyTab === 'group'"
+        [class.dark:text-slate-200]="historyTab === 'group'" [class.shadow]="historyTab === 'group'"
+        [class.text-slate-500]="historyTab !== 'group'" [class.dark:text-slate-400]="historyTab !== 'group'"
+        (click)="historyTab = 'group'">
+        GROUP
+      </button>
+      <button class="flex-1 py-1 text-xs font-bold rounded-md transition-all" [class.bg-white]="historyTab === 'solo'"
+        [class.dark:bg-slate-600]="historyTab === 'solo'" [class.text-slate-900]="historyTab === 'solo'"
+        [class.dark:text-slate-200]="historyTab === 'solo'" [class.shadow]="historyTab === 'solo'"
+        [class.text-slate-500]="historyTab !== 'solo'" [class.dark:text-slate-400]="historyTab !== 'solo'"
+        (click)="historyTab = 'solo'">
+        SOLO
+      </button>
+    </div>
+
+    @if (historyTab === 'group') {
+    <div class="text-center text-xs font-bold text-slate-500 dark:text-slate-400 mb-2">
       RECORD: <span class="text-green-600 dark:text-green-400">{{ totalWins }}W</span> - <span
         class="text-red-500 dark:text-red-400">{{ totalLosses }}L</span>
     </div>
-    <div class="flex-1 overflow-y-auto mb-4 pr-1">
-      @if (gameHistory.length === 0) {
-      <div class="text-center text-slate-900 dark:text-slate-200 py-8 font-medium">
+    } @else {
+    <div class="text-center text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 tracking-wide uppercase">
+      Best Score: <span class="text-purple-600 dark:text-purple-400">{{ bestSoloScore !== null ? bestSoloScore + " X's"
+        : '--' }}</span>
+    </div>
+    }
+
+    <div class="flex-1 overflow-y-auto mb-3 pr-1">
+      @if ((historyTab === 'group' ? groupGames : soloGames).length === 0) {
+      <div class="text-center text-slate-900 dark:text-slate-200 py-6 font-medium text-sm">
         No games in history
       </div>
       } @else {
-      <div class="flex flex-col gap-3">
-        @for (game of gameHistory; track game.id) {
+      <div class="flex flex-col gap-2">
+        @for (game of (historyTab === 'group' ? groupGames : soloGames); track game.id) {
         <div
-          class="flex items-center justify-between p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
+          class="flex items-center justify-between p-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
           <div class="flex flex-col">
-            <span class="text-xs font-bold text-slate-400 dark:text-slate-200 mb-1">{{ game.date }}</span>
+            <span class="text-[10px] font-bold text-slate-400 dark:text-slate-200 mb-0.5">{{ game.date }}</span>
             <div class="flex items-center gap-2">
-              <span class="font-black text-lg text-slate-900 dark:text-slate-200">
-                {{ game.xsCount }} <span class="text-sm font-bold text-slate-900 dark:text-slate-200">X's</span>
+              <span class="font-black text-base text-slate-900 dark:text-slate-200">
+                {{ game.xsCount }} <span class="text-xs font-bold text-slate-900 dark:text-slate-200">X's</span>
               </span>
+              @if (historyTab === 'group') {
               @if (game.won) {
               <span
-                class="px-2 py-0.5 rounded text-[10px] font-black bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400">WON</span>
+                class="px-2 py-0.5 rounded text-[9px] font-black bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400">WON</span>
               } @else {
               <span
-                class="px-2 py-0.5 rounded text-[10px] font-black bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-400">LOST</span>
+                class="px-2 py-0.5 rounded text-[9px] font-black bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-400">LOST</span>
+              }
+              } @else {
+              @if (isOverallBest(game)) {
+              <span
+                class="px-2 py-0.5 rounded text-[9px] font-black bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-400 tracking-wide"
+                title="Overall Best Score">👑 OVERALL BEST</span>
+              } @else if (wasBestAtTheTime(game)) {
+              <span
+                class="px-2 py-0.5 rounded text-[9px] font-black bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-400 tracking-wide"
+                title="Previous Best Score">⭐ PREVIOUS BEST</span>
+              }
               }
             </div>
           </div>
-          <button class="p-2 text-red-400 hover:text-red-600 transition-colors" (click)="deleteHistoryItem(game.id)"
+          <button class="p-1.5 text-red-400 hover:text-red-600 transition-colors" (click)="deleteHistoryItem(game.id)"
             title="Delete Game">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-              stroke="currentColor" class="w-5 h-5">
+              stroke="currentColor" class="w-4 h-4">
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
             </svg>
@@ -5435,7 +5484,7 @@
       }
     </div>
     <button
-      class="w-full h-12 bg-slate-100 dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 rounded-lg text-lg font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all select-none shadow-sm flex-shrink-0"
+      class="w-full h-10 bg-slate-100 dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all select-none shadow-sm flex-shrink-0"
       (click)="closeHistoryModal()">
       CLOSE
     </button>
@@ -5464,6 +5513,37 @@
         class="h-12 bg-red-600 border-2 border-red-700 rounded-lg text-lg font-bold text-white hover:bg-red-700 transition-all select-none active:scale-95 shadow-sm"
         (click)="executeDelete()">
         DELETE
+      </button>
+    </div>
+  </div>
+</div>
+}
+
+<!-- End Game Modal -->
+@if (isEndGameModalOpen) {
+<div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-[60] p-4"
+  (click)="closeEndGameModal(false)">
+  <div
+    class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-6 border-[3px] border-slate-600 dark:border-slate-500 max-w-[360px] w-full"
+    (click)="$event.stopPropagation()">
+    <h2 class="text-center font-bold text-xl text-slate-900 dark:text-slate-200 mb-2 tracking-wide">END GAME?</h2>
+    <p class="text-center text-slate-600 dark:text-slate-400 mb-4 font-medium leading-relaxed text-sm">
+      Are you ready to end the game? Only do this if the 8th round has been completed.
+    </p>
+    <p class="text-center text-slate-500 dark:text-slate-500 mb-6 text-xs italic">
+      All remaining empty boxes will automatically be filled with X's.
+    </p>
+
+    <div class="grid grid-cols-2 gap-3">
+      <button
+        class="h-12 bg-slate-100 dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 rounded-lg text-lg font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all select-none active:scale-95 shadow-sm"
+        (click)="closeEndGameModal(false)">
+        NO
+      </button>
+      <button
+        class="h-12 bg-purple-600 border-2 border-purple-700 rounded-lg text-lg font-bold text-white hover:bg-purple-700 transition-all select-none active:scale-95 shadow-sm"
+        (click)="closeEndGameModal(true)">
+        YES
       </button>
     </div>
   </div>

@@ -10,6 +10,7 @@ export interface GameHistoryItem {
   date: string;
   xsCount: number;
   won: boolean;
+  isSolo?: boolean;
 }
 
 @Component({
@@ -33,18 +34,56 @@ export class AppComponent implements OnInit {
   isModalOpen = false;
   isResetModalOpen = false;
 
-  // New Modals
   isSettingsModalOpen = false;
   isHistoryModalOpen = false;
   isDeleteModalOpen = false;
+  isEndGameModalOpen = false;
+  lastToggledRoundIndex: number | null = null;
   gameToDeleteId: string | null = null;
 
   get totalWins(): number {
-    return this.gameHistory.filter(g => g.won).length;
+    return this.groupGames.filter(g => g.won).length;
   }
 
   get totalLosses(): number {
-    return this.gameHistory.filter(g => !g.won).length;
+    return this.groupGames.filter(g => !g.won).length;
+  }
+
+  historyTab: 'group' | 'solo' = 'group';
+
+  get groupGames(): GameHistoryItem[] {
+    return this.gameHistory.filter(g => !g.isSolo);
+  }
+
+  get soloGames(): GameHistoryItem[] {
+    return this.gameHistory.filter(g => g.isSolo);
+  }
+
+  get bestSoloScore(): number | null {
+    const scores = this.soloGames.map(g => g.xsCount);
+    return scores.length > 0 ? Math.min(...scores) : null;
+  }
+
+  isOverallBest(game: GameHistoryItem): boolean {
+    if (!game.isSolo) return false;
+    const best = this.bestSoloScore;
+    // If the game is the current best, it gets the overall best marker.
+    // If multiple games are tied for the best, they all get the marker.
+    return best !== null && game.xsCount === best;
+  }
+
+  wasBestAtTheTime(game: GameHistoryItem): boolean {
+    if (!game.isSolo) return false;
+    // gameHistory is newest-first (index 0 is newest)
+    const gameIndex = this.gameHistory.indexOf(game);
+    if (gameIndex === -1) return false;
+
+    // Older games have a higher index
+    const olderGames = this.gameHistory.slice(gameIndex + 1).filter(g => g.isSolo);
+    if (olderGames.length === 0) return true; // First solo game ever is inherently best at its time
+
+    const bestOlderScore = Math.min(...olderGames.map(g => g.xsCount));
+    return game.xsCount <= bestOlderScore; // <= means tying the record also gets the marker
   }
 
   // Theme & History
@@ -55,6 +94,7 @@ export class AppComponent implements OnInit {
   // Intercept state
   gameWon = false;
   addToHistory = true;
+  isSoloGame = false;
 
   currentEditTarget: {type: 'state' | 'ability' | 'xs', key: string, index?: number} | null = null;
   validOptions: string[] = [ '1', '2', '3', '4', '5', '6' ];
@@ -250,6 +290,7 @@ export class AppComponent implements OnInit {
   openResetModal() {
     this.gameWon = false;
     this.addToHistory = true;
+    this.isSoloGame = false;
     this.isResetModalOpen = true;
   }
 
@@ -263,7 +304,8 @@ export class AppComponent implements OnInit {
         id: Date.now().toString() + Math.random().toString(36).substring(2, 9),
         date: new Date().toLocaleDateString(),
         xsCount: this.xsCount,
-        won: this.gameWon
+        won: this.gameWon,
+        isSolo: this.isSoloGame
       };
       this.gameHistory.unshift(newItem);
       this.saveHistory();
@@ -338,7 +380,29 @@ export class AppComponent implements OnInit {
     if (index >= 0 && index < this.rounds.length) {
       this.rounds[ index ] = !this.rounds[ index ];
       this.saveState();
+
+      if (this.rounds.every(r => r)) {
+        this.lastToggledRoundIndex = index;
+        this.isEndGameModalOpen = true;
+      }
     }
+  }
+
+  closeEndGameModal(confirm: boolean) {
+    this.isEndGameModalOpen = false;
+
+    if (confirm) {
+      Object.keys(stateNames).forEach(stateAlias => {
+        if (!this.stateData[ stateAlias ]) {
+          this.stateData[ stateAlias ] = 'X';
+        }
+      });
+      this.saveState();
+    } else {
+      this.rounds[ 7 ] = false;
+      this.saveState();
+    }
+    this.lastToggledRoundIndex = null;
   }
 
   closeModal() {

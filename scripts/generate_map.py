@@ -140,10 +140,10 @@ for state in states:
             
     # Draw Text
     custom_centers = {
-        'ID': (35.5, 15),
-        'FL': (71.5, 38),
-        'VA': (76.5, 25),
-        'CA': (26.5, 21)
+        'ID': (20, 12),
+        'FL': (60, 45),
+        'VA': (63, 27),
+        'CA': (12.5, 23)
     }
     
     if state in custom_centers:
