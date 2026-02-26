@@ -111,10 +111,21 @@ for state in states:
             svg.append(f'    <line x1="{px+SIZE}" y1="{py}" x2="{px+SIZE}" y2="{py+SIZE}" stroke="#334155" stroke-width="2" />')
             
     # Draw Text
-    avg_x = sum(x for x, y in cells) / len(cells)
-    avg_y = sum(y for x, y in cells) / len(cells)
-    cx = avg_x * SIZE + SIZE/2
-    cy = avg_y * SIZE + SIZE/2
+    custom_centers = {
+        'ID': (35.5, 15),
+        'FL': (71.5, 38),
+        'VA': (76.5, 25),
+        'CA': (26.5, 21)
+    }
+    
+    if state in custom_centers:
+        cx_grid, cy_grid = custom_centers[state]
+    else:
+        cx_grid = sum(x for x, y in cells) / len(cells)
+        cy_grid = sum(y for x, y in cells) / len(cells)
+        
+    cx = cx_grid * SIZE + SIZE/2
+    cy = cy_grid * SIZE + SIZE/2
     
     tag2 = f"""    <text x="{cx}" y="{cy+2}" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{{{ stateData['{state}'] }}}}</text>"""
     circle_tag = f"""    @if (guardedStates['{state}']) {{\n      <circle cx="{cx}" cy="{cy+2}" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />\n    }}"""
