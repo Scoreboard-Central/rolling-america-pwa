@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
   isHistoryModalOpen = false;
   isDeleteModalOpen = false;
   isEndGameModalOpen = false;
+  isRulesModalOpen = false;
   lastToggledRoundIndex: number | null = null;
   gameToDeleteId: string | null = null;
 
@@ -286,6 +287,13 @@ export class AppComponent implements OnInit {
     this.isHistoryModalOpen = false;
   }
 
+  openRulesModal() {
+    this.isRulesModalOpen = true;
+  }
+
+  closeRulesModal() {
+    this.isRulesModalOpen = false;
+  }
 
   openResetModal() {
     this.gameWon = false;

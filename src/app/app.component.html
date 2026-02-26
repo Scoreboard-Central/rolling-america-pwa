@@ -47,7 +47,7 @@
       class="flex-grow flex flex-col justify-center items-center p-1 sm:p-2 lg:p-4 min-w-0 bg-white dark:bg-slate-900 relative">
 
       <!-- Action Buttons (Settings & History) -->
-      <div class="absolute bottom-1 right-1 sm:bottom-4 sm:right-4 flex flex-col items-center gap-1.5 sm:gap-3 z-20">
+      <div class="absolute bottom-1 right-1 sm:bottom-4 sm:right-4 flex flex-col items-end gap-1.5 sm:gap-3 z-20">
         <button
           class="p-1 sm:p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors bg-white/50 dark:bg-slate-800/50 rounded-full"
           (click)="openSettingsModal()" title="Settings">
@@ -66,15 +66,28 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </button>
-        <!-- Reset Button -->
-        <button class="p-1 sm:p-1.5 text-slate-400 hover:text-slate-900 transition-colors" (click)="openResetModal()"
-          title="Reset Game">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
-            stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-          </svg>
-        </button>
+
+        <div class="flex items-center gap-1.5 sm:gap-3">
+          <!-- Rules Button -->
+          <button
+            class="p-1 sm:p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors bg-white/50 dark:bg-slate-800/50 rounded-full"
+            (click)="openRulesModal()" title="Rules">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+          </button>
+          <!-- Reset Button -->
+          <button class="p-1 sm:p-1.5 text-slate-400 hover:text-slate-900 transition-colors" (click)="openResetModal()"
+            title="Reset Game">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+              stroke="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+          </button>
+        </div>
       </div>
 
 
@@ -5544,6 +5557,134 @@
         class="h-12 bg-purple-600 border-2 border-purple-700 rounded-lg text-lg font-bold text-white hover:bg-purple-700 transition-all select-none active:scale-95 shadow-sm"
         (click)="closeEndGameModal(true)">
         YES
+      </button>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Rules Modal -->
+@if (isRulesModalOpen) {
+<div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-[100] p-4 font-sans"
+  (click)="closeRulesModal()">
+  <div
+    class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-6 border-[3px] border-slate-600 dark:border-slate-500 max-w-[800px] w-full max-h-[90vh] flex flex-col overflow-y-auto"
+    (click)="$event.stopPropagation()">
+    <h2 class="text-center font-bold text-2xl text-slate-900 dark:text-slate-200 tracking-wide mb-6">RULES OF PLAY</h2>
+
+    <div class="space-y-6 text-sm text-slate-700 dark:text-slate-300">
+
+      <!-- General Rules Section -->
+      <section>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-slate-200 mb-2">OBJECT</h3>
+        <p>Fill in your map with numbers rolled on the dice. The challenge is that neighboring states can't have numbers
+          that differ by more than 1. Whoever fills the most states with numbers wins.</p>
+      </section>
+
+      <section>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-slate-200 mb-2">HOW TO PLAY</h3>
+        <p>Whoever most recently visited another state starts the game and play continues to the left. On your turn,
+          draw 2 dice from the bag (without looking) and roll them. Then announce the colors and numbers on the dice so
+          that everyone hears.</p>
+        <p class="mt-2">All players simultaneously resolve both dice, in any order, as follows:</p>
+        <ul class="list-disc pl-5 mt-2 space-y-2">
+          <li><strong>NON-WILD DICE:</strong> Choose one empty state in the region of the map that matches the die color
+            and write down the die number in that state.</li>
+          <li><strong>WILD DIE:</strong> Choose one empty state in any region and write down the die number in that
+            state.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-slate-200 mb-2">NEIGHBORING STATE RULE</h3>
+        <p>All states that border the state you are currently filling must either be blank, have an X, be guarded (see
+          to the right), or have a number difference of no greater than 1 from the die result.</p>
+        <p class="mt-2 text-slate-600 dark:text-slate-400 italic">For example if you rolled a green 2, mark a 2 in a
+          green state where all of the neighboring states are either blank, have an X, guarded, or a 1, 2 or a 3 in
+          them.</p>
+
+        <div class="mt-4 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg">
+          <h4 class="font-bold text-red-500 dark:text-red-400 mb-2">Notes:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>The color of any neighboring state is irrelevant.</li>
+            <li>Alaska and Hawaii are immune from the Neighboring State rule.</li>
+          </ul>
+        </div>
+
+        <div class="mt-4 space-y-2">
+          <p>You MUST write a number in an available blank state if it doesn't break the Neighboring State rule.</p>
+          <p>If you cannot write a number without breaking the rule, then you must mark an X in any blank state in the
+            region that matches the die color.</p>
+          <p>If the matching region is completely filled, you do nothing. (This also applies if the die is wild.)</p>
+        </div>
+      </section>
+
+      <!-- Special Powers Section -->
+      <section>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-slate-200 mb-2">SPECIAL POWERS</h3>
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-bold uppercase text-purple-600 dark:text-purple-400">Color Change</h4>
+            <p>Three times during the game you may treat the die you are resolving as a wild. For example, an orange 6
+              could be a purple 6. When you do a color change, you must cross off one of the Color Change boxes on your
+              map.</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold uppercase text-blue-600 dark:text-blue-400">Guard</h4>
+            <p>Three times during the game you may guard a number that you write in a space. This means that you can
+              ignore the "Neighboring State" rule for that number. Circle the number to indicate that it's guarded, and
+              then cross off one of the Guard boxes on your map.</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold uppercase text-sky-500 dark:text-sky-400">Dupe</h4>
+            <p>Three times during the game you may write down an active die number twice in the matching color region.
+              (A wild can be marked in two different regions.) For example, if you roll a blue 3, you can mark a 3 in
+              two states in the blue region. (Note that the Neighboring State rules still applies.) When you do this,
+              you must cross off one of the Dupe boxes on your map.</p>
+          </div>
+        </div>
+
+        <div class="mt-4 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg">
+          <h4 class="font-bold text-red-500 dark:text-red-400 mb-2">Notes:</h4>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>You may apply a Color Change, Guard, and/or Dupe on the same die.</li>
+            <li>You may only use Color Change, Guard, and/or Dupe on the active dice.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Ending the Game Section -->
+      <section>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-slate-200 mb-2">ENDING A ROUND & GAME</h3>
+        <p><strong>CONTINUING A ROUND:</strong> When all players have resolved both dice, count the number of dice that
+          are currently out of the bag. If there are fewer than 6, pass the dice bag to the next player who draws 2 more
+          at random and rolls them, and so on.</p>
+        <p class="mt-2"><strong>ENDING A ROUND:</strong> A round ends after 6 dice are out of the bag. When this
+          happens, put them all back into the bag. All players cross off the next empty "round" box at the top of their
+          map. Start a new round, which plays out just like the previous.</p>
+        <p class="mt-2 text-slate-900 dark:text-slate-200"><strong>ENDING THE GAME:</strong> The game ends after 8
+          rounds. At this point, everyone marks an X in any remaining blank states on their maps. Then all players pass
+          their maps to the player on their left, who checks to see if all of the rules have been followed. (Mark one X
+          for every mistake.) Count up the Xs and write down the total in the "number of Xs" box.</p>
+        <p class="mt-3 font-bold text-green-600 dark:text-green-400">The player with the fewest number of Xs wins the
+          game. In case of a tie, whoever used fewer combined color changes, guards, and dupes wins.</p>
+      </section>
+
+      <!-- Solo Play Section -->
+      <section>
+        <h3 class="font-bold text-lg text-slate-900 dark:text-slate-200 mb-2">SOLO PLAY</h3>
+        <p>If you play by yourself, simply aim for as a high score as you can.</p>
+      </section>
+
+    </div>
+
+    <div class="mt-6 flex justify-center">
+      <button
+        class="w-full sm:w-auto px-8 py-3 bg-slate-100 dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all select-none shadow-sm"
+        (click)="closeRulesModal()">
+        CLOSE
       </button>
     </div>
   </div>
