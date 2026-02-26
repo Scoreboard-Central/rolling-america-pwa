@@ -1,18 +1,57 @@
 import json
 
 grid_str = """
-.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ME ME ..
-.. AK AK .. WA ID ID MT ND MN MN WI NY VT VT NH ME ME ..
-.. AK AK .. OR ID UT SD SD SD IA WI NY VT VT NH NH .. ..
-.. .. .. .. OR NV UT WY NE NE IL WI NY MA MA MA MA .. ..
-.. .. .. .. CA NV AZ WY NE NE IN MI NY CT CT CT RI .. ..
-.. HI HI .. CA CA AZ CO CO KS IN MI NJ CT OH PA DE .. ..
-.. .. .. .. CA CA AZ NM OK KS LA TN MS KY WV PA MD .. ..
-.. .. .. .. CA CA AZ TX OK AR MO TN AL AL VA VA NC .. ..
-.. .. .. .. .. .. .. TX TX AR AR AR AL AL SC SC GA GA ..
-.. .. .. .. .. .. .. TX TX AR AR AR .. .. .. GA GA .. ..
-.. .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. .. ..
-.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ME ME ME ME ME ME .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ME ME ME ME ME ME .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ME ME ME ME ME ME .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. VT VT VT NH NH NH ME ME ME ME ME ME .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. VT VT VT NH NH NH ME ME ME ME ME ME .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. VT VT VT NH NH NH ME ME ME ME ME ME .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AK AK AK AK AK AK .. .. .. WA WA WA WA WA WA WA WA ID ID ID MT MT MT MT MT MT MT MT MT MT MT ND ND ND ND ND ND ND ND ND MN MN MN MN MN .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. NY NY NY NY VT VT VT NH NH NH .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AK AK AK AK AK AK .. .. .. WA WA WA WA WA WA WA WA ID ID ID MT MT MT MT MT MT MT MT MT MT MT ND ND ND ND ND ND ND ND ND MN MN MN MN MN .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. NY NY NY NY VT VT VT NH NH NH .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AK AK AK AK AK AK .. .. .. WA WA WA WA WA WA WA WA ID ID ID MT MT MT MT MT MT MT MT MT MT MT ND ND ND ND ND ND ND ND ND MN MN MN MN MN WI WI WI WI WI MI MI MI MI MI MI .. .. .. .. .. .. .. .. NY NY NY NY VT VT VT NH NH NH .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AK AK AK AK AK AK .. .. .. WA WA WA WA WA WA WA WA ID ID ID MT MT MT MT MT MT MT MT MT MT MT ND ND ND ND ND ND ND ND ND MN MN MN MN MN WI WI WI WI WI MI MI MI MI MI MI .. .. .. .. .. .. .. .. NY NY NY NY MA MA MA MA MA MA MA MA MA .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AK AK AK AK AK AK .. .. .. WA WA WA WA WA WA WA WA ID ID ID MT MT MT MT MT MT MT MT MT MT MT ND ND ND ND ND ND ND ND ND MN MN MN MN MN WI WI WI WI WI MI MI MI MI MI MI .. .. .. .. .. .. .. .. NY NY NY NY MA MA MA MA MA MA MA MA MA .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AK AK AK AK AK AK .. .. .. OR OR OR OR OR OR OR OR ID ID ID MT MT MT MT MT MT MT MT MT MT MT ND ND ND ND ND ND ND ND ND MN MN MN MN MN WI WI WI WI WI .. .. MI MI MI MI .. .. .. .. NY NY NY NY NY NY NY NY MA MA MA MA MA MA MA MA MA .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. OR OR OR OR OR OR OR OR ID ID ID MT MT MT MT MT MT MT MT MT MT MT SD SD SD SD SD SD SD SD SD MN MN MN MN MN WI WI WI WI WI .. .. MI MI MI MI .. .. .. .. NY NY NY NY NY NY NY NY CT CT CT CT CT CT RI RI RI .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. OR OR OR OR OR OR OR OR ID ID ID MT MT MT MT MT MT MT MT MT MT MT SD SD SD SD SD SD SD SD SD MN MN MN MN MN WI WI WI WI WI .. .. MI MI MI MI .. .. .. .. NY NY NY NY NY NY NY NY CT CT CT CT CT CT RI RI RI .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. OR OR OR OR OR OR OR OR ID ID ID ID ID ID WY WY WY WY WY WY WY WY SD SD SD SD SD SD SD SD SD IA IA IA IA IA WI WI WI WI WI .. .. MI MI MI MI .. .. .. .. NY NY NY NY NY NY NY NY CT CT CT CT CT CT RI RI RI .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. OR OR OR OR OR OR OR OR ID ID ID ID ID ID WY WY WY WY WY WY WY WY SD SD SD SD SD SD SD SD SD IA IA IA IA IA IL IL IL IL IL IN IN IN IN OH OH OH OH PA PA PA PA PA PA PA PA NJ NJ NJ NJ NJ NJ .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. OR OR OR OR OR OR OR OR ID ID ID ID ID ID WY WY WY WY WY WY WY WY SD SD SD SD SD SD SD SD SD IA IA IA IA IA IL IL IL IL IL IN IN IN IN OH OH OH OH PA PA PA PA PA PA PA PA NJ NJ NJ NJ NJ NJ .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT WY WY WY WY WY WY WY WY NE NE NE NE NE NE NE NE NE IA IA IA IA IA IL IL IL IL IL IN IN IN IN OH OH OH OH PA PA PA PA PA PA PA PA NJ NJ NJ NJ NJ NJ .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT WY WY WY WY WY WY WY WY NE NE NE NE NE NE NE NE NE IA IA IA IA IA IL IL IL IL IL IN IN IN IN OH OH OH OH PA PA PA PA PA PA PA PA DE DE DE DE DE DE .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT WY WY WY WY WY WY WY WY NE NE NE NE NE NE NE NE NE IA IA IA IA IA IL IL IL IL IL IN IN IN IN OH OH OH OH PA PA PA PA PA PA PA PA DE DE DE DE DE DE .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT UT UT CO CO CO CO CO CO CO CO NE NE NE NE NE NE NE MO MO MO MO MO IL IL IL IL IL IN IN IN IN OH OH OH OH PA PA PA PA PA PA PA PA DE DE DE DE DE DE .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT UT UT CO CO CO CO CO CO CO CO NE NE NE NE NE NE NE MO MO MO MO MO IL IL IL IL IL KY KY KY KY KY WV WV WV WV WV WV VA VA VA MD MD MD MD MD MD .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT UT UT CO CO CO CO CO CO CO CO KS KS KS KS KS KS KS MO MO MO MO MO IL IL IL IL IL KY KY KY KY KY WV WV WV WV WV WV VA VA VA MD MD MD MD MD MD .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT UT UT CO CO CO CO CO CO CO CO KS KS KS KS KS KS KS MO MO MO MO MO IL IL IL IL IL KY KY KY KY KY WV WV WV WV WV WV VA VA VA MD MD MD MD MD MD .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT UT UT CO CO CO CO CO CO CO CO KS KS KS KS KS KS KS MO MO MO MO MO KY KY KY KY KY KY KY KY KY KY VA VA VA VA VA VA VA VA VA VA VA VA .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. HI HI HI HI HI HI .. .. .. CA CA CA CA NV NV NV NV NV NV UT UT UT UT UT UT CO CO CO CO CO CO CO CO KS KS KS KS KS KS KS MO MO MO MO MO KY KY KY KY KY KY KY KY KY KY VA VA VA VA VA VA VA VA VA VA VA VA .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. HI HI HI HI HI HI .. .. .. CA CA CA CA CA CA CA CA AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM OK OK OK OK OK OK OK OK OK MO MO MO MO MO KY KY KY KY KY KY KY KY KY KY VA VA VA VA VA VA VA VA VA VA VA VA .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. HI HI HI HI HI HI .. .. .. .. CA CA CA CA CA CA CA AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM OK OK OK OK OK OK OK OK OK MO MO MO MO MO TN TN TN TN TN TN TN TN TN TN TN TN NC NC NC NC NC NC NC NC NC NC .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA CA CA AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM OK OK OK OK OK OK OK OK OK AR AR AR AR AR TN TN TN TN TN TN TN TN TN TN TN TN NC NC NC NC NC NC NC NC NC NC .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. CA CA CA CA CA AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM TX TX TX TX OK OK OK OK OK AR AR AR AR AR TN TN TN TN TN TN TN TN TN TN TN TN NC NC NC NC NC NC NC NC NC NC .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM TX TX TX TX OK OK OK OK OK AR AR AR AR AR MS MS MS MS MS AL AL AL AL GA GA GA GA GA GA SC SC SC SC .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM TX TX TX TX OK OK OK OK OK AR AR AR AR AR MS MS MS MS MS AL AL AL AL GA GA GA GA GA GA SC SC SC SC .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM TX TX TX TX OK OK OK OK OK AR AR AR AR AR MS MS MS MS MS AL AL AL AL GA GA GA GA GA GA SC SC SC SC .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM TX TX TX TX TX TX TX TX TX TX TX AR AR AR MS MS MS MS MS AL AL AL AL GA GA GA GA GA GA SC SC SC SC .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. AZ AZ AZ AZ AZ AZ AZ AZ NM NM NM NM NM NM TX TX TX TX TX TX TX TX TX TX TX LA LA LA MS MS MS MS MS AL AL AL AL GA GA GA GA GA GA .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX TX TX TX TX TX TX TX TX TX LA LA LA MS MS MS MS MS AL AL AL AL GA GA GA GA GA GA .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX TX TX TX TX TX TX TX TX TX LA LA LA MS MS MS MS MS AL AL AL AL GA GA GA GA GA GA .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX TX TX TX TX TX TX TX TX TX LA LA LA MS MS MS MS MS AL AL FL FL FL FL FL FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX TX TX TX TX TX TX TX TX TX LA LA LA LA LA LA MS MS AL AL FL FL FL FL FL FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX TX TX TX TX LA LA LA LA LA LA MS MS AL AL FL FL FL FL FL FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX TX TX TX TX LA LA LA LA LA LA .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX TX TX TX TX LA LA LA LA LA LA .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX TX .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+.. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
 """
 
 colors = {
@@ -38,7 +77,7 @@ grid = []
 for row in lines:
     grid.append(row + ['..'] * (W - len(row)))
 
-SIZE = 34 # pixels per cell
+SIZE = 12 # pixels per cell
 svg = []
 svg.append(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W*SIZE}" height="{H*SIZE}" viewBox="0 0 {W*SIZE} {H*SIZE}">')
 
@@ -48,8 +87,7 @@ for state in states:
     cells = [(x, y) for y, row in enumerate(grid) for x, cell in enumerate(row) if cell == state]
     
     fill_color = hex_colors[colors[state]]
-    
-    tag = f"""  <g class="cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', '{state}')">"""
+    tag = f"""  <g class="state-{state} cursor-pointer hover:opacity-80 transition-opacity" (click)="openModal('state', '{state}')">"""
     svg.append(tag)
     
     # Draw Fill Rectangles

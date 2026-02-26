@@ -1,0 +1,18 @@
+grid_lines = [
+    ".. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ME ME ..",
+    ".. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ME ME ..",
+    ".. .. AK AK AK .. .. WA WA WA ID MT MT ND ND MN MN WI WI MI MI MI .. .. .. VT VT NH NH ME ME .. ..",
+    ".. .. AK AK AK .. .. WA WA WA ID MT MT SD SD MN MN WI WI MI MI MI .. NY NY NY VT VT NH NH NH NH ..",
+    ".. .. AK AK AK .. .. OR OR OR ID ID WY SD SD SD IA WI IL IN MI MI MI .. NY NY VT MA MA MA MA .. ..",
+    ".. .. .. .. .. .. .. OR OR OR NV ID WY WY WY NE IA IA IL IL IN IN OH PA PA NY NY NY CT CT RI RI ..",
+    ".. .. .. .. .. .. .. CA CA NV NV UT WY WY CO NE NE MO MO IL IN OH OH PA PA NJ NJ NJ NJ .. .. .. ..",
+    ".. .. .. .. .. .. .. CA CA NV NV UT UT CO CO CO KS KS MO IL KY OH OH WV PA PA PA DE DE DE .. .. ..",
+    ".. .. HI HI HI .. .. CA CA AZ NV UT UT CO CO CO KS KS MO MO KY KY KY WV WV PA MD MD MD .. .. .. ..",
+    ".. .. HI HI HI .. .. CA CA AZ AZ AZ NM NM NM OK OK OK MO MO KY KY VA VA VA VA VA .. .. .. .. .. ..",
+    ".. .. .. .. .. .. .. CA CA AZ AZ AZ AZ NM NM TX TX OK OK MO TN TN TN TN TN NC NC NC NC NC .. .. ..",
+    ".. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX AR AR AR MS MS AL GA GA GA SC SC SC .. .. ..",
+    ".. .. .. .. .. .. .. .. .. .. .. .. .. .. .. TX TX TX TX LA LA MS MS AL AL GA GA GA GA SC .. .. ..",
+    ".. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. LA LA LA LA LA MS MS AL AL AL FL FL FL .. .. .. ..",
+    ".. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. FL FL FL FL .. .. .. ..",
+    ".. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. FL FL FL .. .. .. .. ..",
+]

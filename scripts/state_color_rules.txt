@@ -1,0 +1,339 @@
+Rolling America - State Neighbor Color Rules
+============================================
+
+State: AL (yellow)
+  Total Neighbors: 4
+  Neighbor States: FL, GA, MS, TN
+  Neighbor Colors:
+    - yellow: 3
+    - red: 1
+
+State: AR (yellow)
+  Total Neighbors: 6
+  Neighbor States: LA, MO, MS, OK, TN, TX
+  Neighbor Colors:
+    - green: 2
+    - yellow: 4
+
+State: AZ (orange)
+  Total Neighbors: 4
+  Neighbor States: CA, NM, NV, UT
+  Neighbor Colors:
+    - orange: 3
+    - green: 1
+
+State: CA (orange)
+  Total Neighbors: 3
+  Neighbor States: AZ, NV, OR
+  Neighbor Colors:
+    - orange: 3
+
+State: CO (green)
+  Total Neighbors: 6
+  Neighbor States: KS, NE, NM, OK, UT, WY
+  Neighbor Colors:
+    - orange: 1
+    - green: 5
+
+State: CT (purple)
+  Total Neighbors: 4
+  Neighbor States: DE, MA, NY, RI
+  Neighbor Colors:
+    - red: 1
+    - purple: 3
+
+State: DE (red)
+  Total Neighbors: 5
+  Neighbor States: CT, MD, NJ, NY, PA
+  Neighbor Colors:
+    - red: 2
+    - purple: 3
+
+State: FL (yellow)
+  Total Neighbors: 3
+  Neighbor States: AL, GA, SC
+  Neighbor Colors:
+    - yellow: 1
+    - red: 2
+
+State: GA (red)
+  Total Neighbors: 5
+  Neighbor States: AL, FL, NC, SC, TN
+  Neighbor Colors:
+    - yellow: 3
+    - red: 2
+
+State: IA (blue)
+  Total Neighbors: 6
+  Neighbor States: IL, MN, MO, NE, SD, WI
+  Neighbor Colors:
+    - blue: 4
+    - green: 1
+    - yellow: 1
+
+State: ID (orange)
+  Total Neighbors: 6
+  Neighbor States: MT, NV, OR, UT, WA, WY
+  Neighbor Colors:
+    - orange: 4
+    - blue: 1
+    - green: 1
+
+State: IL (blue)
+  Total Neighbors: 6
+  Neighbor States: IA, IN, KY, MI, MO, WI
+  Neighbor Colors:
+    - blue: 4
+    - yellow: 2
+
+State: IN (blue)
+  Total Neighbors: 4
+  Neighbor States: IL, KY, MI, OH
+  Neighbor Colors:
+    - blue: 2
+    - yellow: 1
+    - red: 1
+
+State: KS (green)
+  Total Neighbors: 4
+  Neighbor States: CO, MO, NE, OK
+  Neighbor Colors:
+    - green: 3
+    - yellow: 1
+
+State: KY (yellow)
+  Total Neighbors: 7
+  Neighbor States: IL, IN, MO, OH, TN, VA, WV
+  Neighbor Colors:
+    - blue: 2
+    - yellow: 2
+    - red: 3
+
+State: LA (yellow)
+  Total Neighbors: 3
+  Neighbor States: AR, MS, TX
+  Neighbor Colors:
+    - green: 1
+    - yellow: 2
+
+State: MA (purple)
+  Total Neighbors: 5
+  Neighbor States: CT, NH, NY, RI, VT
+  Neighbor Colors:
+    - purple: 5
+
+State: MD (red)
+  Total Neighbors: 5
+  Neighbor States: DE, NC, PA, VA, WV
+  Neighbor Colors:
+    - red: 5
+
+State: ME (purple)
+  Total Neighbors: 1
+  Neighbor States: NH
+  Neighbor Colors:
+    - purple: 1
+
+State: MI (blue)
+  Total Neighbors: 6
+  Neighbor States: IL, IN, NY, OH, PA, WI
+  Neighbor Colors:
+    - blue: 3
+    - red: 2
+    - purple: 1
+
+State: MN (blue)
+  Total Neighbors: 4
+  Neighbor States: IA, ND, SD, WI
+  Neighbor Colors:
+    - blue: 4
+
+State: MO (yellow)
+  Total Neighbors: 8
+  Neighbor States: AR, IA, IL, KS, KY, NE, OK, TN
+  Neighbor Colors:
+    - blue: 2
+    - green: 3
+    - yellow: 3
+
+State: MS (yellow)
+  Total Neighbors: 4
+  Neighbor States: AL, AR, LA, TN
+  Neighbor Colors:
+    - yellow: 4
+
+State: MT (blue)
+  Total Neighbors: 5
+  Neighbor States: ID, ND, SD, WA, WY
+  Neighbor Colors:
+    - orange: 2
+    - blue: 2
+    - green: 1
+
+State: NC (red)
+  Total Neighbors: 5
+  Neighbor States: GA, MD, SC, TN, VA
+  Neighbor Colors:
+    - yellow: 1
+    - red: 4
+
+State: ND (blue)
+  Total Neighbors: 3
+  Neighbor States: MN, MT, SD
+  Neighbor Colors:
+    - blue: 3
+
+State: NE (green)
+  Total Neighbors: 6
+  Neighbor States: CO, IA, KS, MO, SD, WY
+  Neighbor Colors:
+    - blue: 2
+    - green: 3
+    - yellow: 1
+
+State: NH (purple)
+  Total Neighbors: 4
+  Neighbor States: MA, ME, RI, VT
+  Neighbor Colors:
+    - purple: 4
+
+State: NJ (purple)
+  Total Neighbors: 3
+  Neighbor States: DE, NY, PA
+  Neighbor Colors:
+    - red: 2
+    - purple: 1
+
+State: NM (green)
+  Total Neighbors: 5
+  Neighbor States: AZ, CO, OK, TX, UT
+  Neighbor Colors:
+    - orange: 2
+    - green: 3
+
+State: NV (orange)
+  Total Neighbors: 5
+  Neighbor States: AZ, CA, ID, OR, UT
+  Neighbor Colors:
+    - orange: 5
+
+State: NY (purple)
+  Total Neighbors: 8
+  Neighbor States: CT, DE, MA, MI, NJ, OH, PA, VT
+  Neighbor Colors:
+    - blue: 1
+    - red: 3
+    - purple: 4
+
+State: OH (red)
+  Total Neighbors: 6
+  Neighbor States: IN, KY, MI, NY, PA, WV
+  Neighbor Colors:
+    - blue: 2
+    - yellow: 1
+    - red: 2
+    - purple: 1
+
+State: OK (green)
+  Total Neighbors: 6
+  Neighbor States: AR, CO, KS, MO, NM, TX
+  Neighbor Colors:
+    - green: 4
+    - yellow: 2
+
+State: OR (orange)
+  Total Neighbors: 4
+  Neighbor States: CA, ID, NV, WA
+  Neighbor Colors:
+    - orange: 4
+
+State: PA (red)
+  Total Neighbors: 7
+  Neighbor States: DE, MD, MI, NJ, NY, OH, WV
+  Neighbor Colors:
+    - blue: 1
+    - red: 4
+    - purple: 2
+
+State: RI (purple)
+  Total Neighbors: 3
+  Neighbor States: CT, MA, NH
+  Neighbor Colors:
+    - purple: 3
+
+State: SC (red)
+  Total Neighbors: 3
+  Neighbor States: FL, GA, NC
+  Neighbor Colors:
+    - yellow: 1
+    - red: 2
+
+State: SD (blue)
+  Total Neighbors: 6
+  Neighbor States: IA, MN, MT, ND, NE, WY
+  Neighbor Colors:
+    - blue: 4
+    - green: 2
+
+State: TN (yellow)
+  Total Neighbors: 8
+  Neighbor States: AL, AR, GA, KY, MO, MS, NC, VA
+  Neighbor Colors:
+    - yellow: 5
+    - red: 3
+
+State: TX (green)
+  Total Neighbors: 4
+  Neighbor States: AR, LA, NM, OK
+  Neighbor Colors:
+    - green: 2
+    - yellow: 2
+
+State: UT (orange)
+  Total Neighbors: 6
+  Neighbor States: AZ, CO, ID, NM, NV, WY
+  Neighbor Colors:
+    - orange: 3
+    - green: 3
+
+State: VA (red)
+  Total Neighbors: 5
+  Neighbor States: KY, MD, NC, TN, WV
+  Neighbor Colors:
+    - yellow: 2
+    - red: 3
+
+State: VT (purple)
+  Total Neighbors: 3
+  Neighbor States: MA, NH, NY
+  Neighbor Colors:
+    - purple: 3
+
+State: WA (orange)
+  Total Neighbors: 3
+  Neighbor States: ID, MT, OR
+  Neighbor Colors:
+    - orange: 2
+    - blue: 1
+
+State: WI (blue)
+  Total Neighbors: 4
+  Neighbor States: IA, IL, MI, MN
+  Neighbor Colors:
+    - blue: 4
+
+State: WV (red)
+  Total Neighbors: 5
+  Neighbor States: KY, MD, OH, PA, VA
+  Neighbor Colors:
+    - yellow: 1
+    - red: 4
+
+State: WY (green)
+  Total Neighbors: 6
+  Neighbor States: CO, ID, MT, NE, SD, UT
+  Neighbor Colors:
+    - orange: 2
+    - blue: 2
+    - green: 2
+
