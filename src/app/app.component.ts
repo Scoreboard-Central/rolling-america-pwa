@@ -22,7 +22,7 @@ export interface GameHistoryItem {
 export class AppComponent implements OnInit {
   get currentModalTitle(): string {
     if (this.currentEditTarget?.type === 'state') {
-      return stateNames[this.currentEditTarget.key] || 'SELECT VALUE';
+      return stateNames[ this.currentEditTarget.key ] || 'SELECT VALUE';
     }
     return 'SELECT VALUE';
   }
@@ -38,17 +38,18 @@ export class AppComponent implements OnInit {
   isHistoryModalOpen = false;
   isDeleteModalOpen = false;
   gameToDeleteId: string | null = null;
-  
+
   get totalWins(): number {
     return this.gameHistory.filter(g => g.won).length;
   }
-  
+
   get totalLosses(): number {
     return this.gameHistory.filter(g => !g.won).length;
   }
 
   // Theme & History
   isDarkMode = true;
+  showDiceUI = true;
   gameHistory: GameHistoryItem[] = [];
 
   // Intercept state
@@ -58,9 +59,9 @@ export class AppComponent implements OnInit {
   currentEditTarget: {type: 'state' | 'ability' | 'xs', key: string, index?: number} | null = null;
   validOptions: string[] = [ '1', '2', '3', '4', '5', '6' ];
 
-  readonly allDiceColors = ['orange', 'blue', 'purple', 'green', 'red', 'yellow', 'white'];
-  availableDice: string[] = [...this.allDiceColors];
-  activeDice: { color: string, value: number | null }[] = [];
+  readonly allDiceColors = [ 'orange', 'blue', 'purple', 'green', 'red', 'yellow', 'white' ];
+  availableDice: string[] = [ ...this.allDiceColors ];
+  activeDice: {color: string, value: number | null}[] = [];
   diceState: 'start' | 'selected' | 'rolled' | 'round_end' = 'start';
 
   // Game State
@@ -86,15 +87,15 @@ export class AppComponent implements OnInit {
   // Dice Mechanics
   selectDice() {
     if (this.availableDice.length < 2) return;
-    
+
     const selected = [];
     for (let i = 0; i < 2; i++) {
-        const randIndex = Math.floor(Math.random() * this.availableDice.length);
-        selected.push(this.availableDice.splice(randIndex, 1)[0]);
+      const randIndex = Math.floor(Math.random() * this.availableDice.length);
+      selected.push(this.availableDice.splice(randIndex, 1)[ 0 ]);
     }
     this.activeDice = [
-        { color: selected[0], value: null },
-        { color: selected[1], value: null }
+      {color: selected[ 0 ], value: null},
+      {color: selected[ 1 ], value: null}
     ];
     this.diceState = 'selected';
     this.saveState();
@@ -102,19 +103,19 @@ export class AppComponent implements OnInit {
 
   rollDice() {
     this.activeDice.forEach(die => {
-        die.value = Math.floor(Math.random() * 6) + 1;
+      die.value = Math.floor(Math.random() * 6) + 1;
     });
-    
+
     if (this.availableDice.length === 1) {
-        this.diceState = 'round_end';
+      this.diceState = 'round_end';
     } else {
-        this.diceState = 'rolled';
+      this.diceState = 'rolled';
     }
     this.saveState();
   }
 
   nextRound() {
-    this.availableDice = [...this.allDiceColors];
+    this.availableDice = [ ...this.allDiceColors ];
     this.activeDice = [];
     this.diceState = 'start';
     this.saveState();
@@ -136,7 +137,8 @@ export class AppComponent implements OnInit {
       abilities: this.abilities,
       availableDice: this.availableDice,
       activeDice: this.activeDice,
-      diceState: this.diceState
+      diceState: this.diceState,
+      showDiceUI: this.showDiceUI
     };
     localStorage.setItem('rollingAmericaState', JSON.stringify(saveData));
   }
@@ -153,9 +155,10 @@ export class AppComponent implements OnInit {
         guard: [ '', '', '' ],
         dupe: [ '', '', '' ]
       };
-      this.availableDice = parsed.availableDice || [...this.allDiceColors];
+      this.availableDice = parsed.availableDice || [ ...this.allDiceColors ];
       this.activeDice = parsed.activeDice || [];
       this.diceState = parsed.diceState || 'start';
+      this.showDiceUI = parsed.showDiceUI !== false; // Default to true
     }
   }
 
@@ -169,21 +172,29 @@ export class AppComponent implements OnInit {
       this.isDarkMode = true;
       localStorage.setItem('theme', 'dark');
     }
-    this.applyTheme();
-  }
-
-  toggleTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
-    this.applyTheme();
-  }
-
-  applyTheme() {
+    // Apply immediately to the document body
     if (this.isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
+  }
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+
+    // Apply immediately to the document body
+    if (this.isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  toggleDiceUI() {
+    this.showDiceUI = !this.showDiceUI;
+    this.saveState();
   }
 
   loadHistory() {
@@ -266,7 +277,7 @@ export class AppComponent implements OnInit {
       guard: [ '', '', '' ],
       dupe: [ '', '', '' ]
     };
-    this.availableDice = [...this.allDiceColors];
+    this.availableDice = [ ...this.allDiceColors ];
     this.activeDice = [];
     this.diceState = 'start';
     this.saveState();
