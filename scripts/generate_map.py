@@ -68,18 +68,46 @@ hex_colors = {
     'ra-yellow': '#F4D075', 'ra-red': '#F29C9C', 'ra-purple': '#A4A6D5'
 }
 
-lines = [l.strip().split() for l in grid_str.strip().split('\n')]
-H = len(lines)
-W = max(len(row) for row in lines)
-
-# ensure uniform grid
-grid = []
+lines = [l.strip().split() for l in grid_str.strip().split('\n') if l.strip()]
+W_initial = max(len(row) for row in lines)
+# ensure uniform grid first
+temp_grid = []
 for row in lines:
-    grid.append(row + ['..'] * (W - len(row)))
+    temp_grid.append(row + ['..'] * (W_initial - len(row)))
+
+# Find bounding box of states
+min_r, max_r, min_c, max_c = len(temp_grid), 0, W_initial, 0
+for r in range(len(temp_grid)):
+    for c in range(W_initial):
+        if temp_grid[r][c] != '..':
+            min_r = min(min_r, r)
+            max_r = max(max_r, r)
+            min_c = min(min_c, c)
+            max_c = max(max_c, c)
+
+# Crop to bounding box
+cropped_grid = []
+for r in range(min_r, max_r + 1):
+    cropped_grid.append(temp_grid[r][min_c:max_c + 1])
+
+# Pad with exactly 2 rows/cols of '..'
+pad = 2
+W = len(cropped_grid[0]) + pad * 2
+H = len(cropped_grid) + pad * 2
+grid = []
+# Top padding
+for _ in range(pad):
+    grid.append(['..'] * W)
+# Middle with side padding
+for row in cropped_grid:
+    grid.append(['..'] * pad + row + ['..'] * pad)
+# Bottom padding
+for _ in range(pad):
+    grid.append(['..'] * W)
 
 SIZE = 12 # pixels per cell
 svg = []
-svg.append(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W*SIZE}" height="{H*SIZE}" viewBox="0 0 {W*SIZE} {H*SIZE}">')
+svg.append(f'<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 {W*SIZE} {H*SIZE}" class="w-full h-full max-h-[85vh]" style="object-fit: contain;">')
 
 # Find all states
 states = set(c for r in grid for c in r if c != '..')
