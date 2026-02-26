@@ -92,23 +92,23 @@ for state in states:
     
     # Draw Fill Rectangles
     for (x, y) in cells:
-        svg.append(f'    <rect x="{x*SIZE}" y="{y*SIZE}" width="{SIZE}" height="{SIZE}" fill="{fill_color}" />')
+        svg.append(f'    <rect x="{x*SIZE}" y="{y*SIZE}" width="{SIZE+0.5}" height="{SIZE+0.5}" shape-rendering="crispEdges" fill="{fill_color}" />')
         
     # Draw Outer Borders
     for (x, y) in cells:
         px, py = x*SIZE, y*SIZE
         # Top
         if y == 0 or grid[y-1][x] != state:
-            svg.append(f'    <line x1="{px}" y1="{py}" x2="{px+SIZE}" y2="{py}" stroke="#334155" stroke-width="2" />')
+            svg.append(f'    <line x1="{px}" y1="{py}" x2="{px+SIZE}" y2="{py}" stroke="currentColor" class="text-slate-600 dark:text-slate-800" stroke-width="2" />')
         # Bottom
         if y == H-1 or grid[y+1][x] != state:
-            svg.append(f'    <line x1="{px}" y1="{py+SIZE}" x2="{px+SIZE}" y2="{py+SIZE}" stroke="#334155" stroke-width="2" />')
+            svg.append(f'    <line x1="{px}" y1="{py+SIZE}" x2="{px+SIZE}" y2="{py+SIZE}" stroke="currentColor" class="text-slate-600 dark:text-slate-800" stroke-width="2" />')
         # Left
         if x == 0 or grid[y][x-1] != state:
-            svg.append(f'    <line x1="{px}" y1="{py}" x2="{px}" y2="{py+SIZE}" stroke="#334155" stroke-width="2" />')
+            svg.append(f'    <line x1="{px}" y1="{py}" x2="{px}" y2="{py+SIZE}" stroke="currentColor" class="text-slate-600 dark:text-slate-800" stroke-width="2" />')
         # Right
         if x == W-1 or grid[y][x+1] != state:
-            svg.append(f'    <line x1="{px+SIZE}" y1="{py}" x2="{px+SIZE}" y2="{py+SIZE}" stroke="#334155" stroke-width="2" />')
+            svg.append(f'    <line x1="{px+SIZE}" y1="{py}" x2="{px+SIZE}" y2="{py+SIZE}" stroke="currentColor" class="text-slate-600 dark:text-slate-800" stroke-width="2" />')
             
     # Draw Text
     custom_centers = {
@@ -127,8 +127,8 @@ for state in states:
     cx = cx_grid * SIZE + SIZE/2
     cy = cy_grid * SIZE + SIZE/2
     
-    tag2 = f"""    <text x="{cx}" y="{cy+2}" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="#1e293b">{{{{ stateData['{state}'] }}}}</text>"""
-    circle_tag = f"""    @if (guardedStates['{state}']) {{\n      <circle cx="{cx}" cy="{cy+2}" r="15" fill="none" stroke="#1e293b" stroke-width="2.5" />\n    }}"""
+    tag2 = f"""    <text x="{cx}" y="{cy+2}" text-anchor="middle" dominant-baseline="central" font-size="20" font-weight="900" fill="currentColor" class="text-slate-900">{{{{ stateData['{state}'] }}}}</text>"""
+    circle_tag = f"""    @if (guardedStates['{state}']) {{\n      <circle cx="{cx}" cy="{cy+2}" r="15" fill="none" stroke="currentColor" class="text-slate-900" stroke-width="2.5" />\n    }}"""
     svg.append(circle_tag)
     svg.append(tag2)
     

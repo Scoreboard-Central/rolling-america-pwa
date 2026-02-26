@@ -5,6 +5,13 @@ import {CommonModule} from '@angular/common';
 
 import {stateAdjacencies} from './map-data';
 
+export interface GameHistoryItem {
+  id: string;
+  date: string;
+  xsCount: number;
+  won: boolean;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -18,6 +25,29 @@ export class AppComponent implements OnInit {
   // Modal State
   isModalOpen = false;
   isResetModalOpen = false;
+
+  // New Modals
+  isSettingsModalOpen = false;
+  isHistoryModalOpen = false;
+  isDeleteModalOpen = false;
+  gameToDeleteId: string | null = null;
+  
+  get totalWins(): number {
+    return this.gameHistory.filter(g => g.won).length;
+  }
+  
+  get totalLosses(): number {
+    return this.gameHistory.filter(g => !g.won).length;
+  }
+
+  // Theme & History
+  isDarkMode = true;
+  gameHistory: GameHistoryItem[] = [];
+
+  // Intercept state
+  gameWon = false;
+  addToHistory = true;
+
   currentEditTarget: {type: 'state' | 'ability' | 'xs', key: string, index?: number} | null = null;
   validOptions: string[] = [ '1', '2', '3', '4', '5', '6' ];
 
@@ -43,6 +73,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.loadState();
+
+    this.loadTheme();
+    this.loadHistory();
+
   }
 
   saveState() {
@@ -70,7 +104,86 @@ export class AppComponent implements OnInit {
     }
   }
 
+
+  loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    // Default app to dark mode
+    if (savedTheme === 'light') {
+      this.isDarkMode = false;
+    } else {
+      this.isDarkMode = true;
+      localStorage.setItem('theme', 'dark');
+    }
+    this.applyTheme();
+  }
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+    this.applyTheme();
+  }
+
+  applyTheme() {
+    if (this.isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  loadHistory() {
+    const saved = localStorage.getItem('rollingAmericaHistory');
+    if (saved) {
+      try {
+        this.gameHistory = JSON.parse(saved);
+      } catch (e) {
+        this.gameHistory = [];
+      }
+    }
+  }
+
+  saveHistory() {
+    localStorage.setItem('rollingAmericaHistory', JSON.stringify(this.gameHistory));
+  }
+
+  deleteHistoryItem(id: string) {
+    this.gameToDeleteId = id;
+    this.isDeleteModalOpen = true;
+  }
+
+  cancelDelete() {
+    this.isDeleteModalOpen = false;
+    this.gameToDeleteId = null;
+  }
+
+  executeDelete() {
+    if (this.gameToDeleteId) {
+      this.gameHistory = this.gameHistory.filter(h => h.id !== this.gameToDeleteId);
+      this.saveHistory();
+    }
+    this.cancelDelete();
+  }
+
+  openSettingsModal() {
+    this.isSettingsModalOpen = true;
+  }
+
+  closeSettingsModal() {
+    this.isSettingsModalOpen = false;
+  }
+
+  openHistoryModal() {
+    this.isHistoryModalOpen = true;
+  }
+
+  closeHistoryModal() {
+    this.isHistoryModalOpen = false;
+  }
+
+
   openResetModal() {
+    this.gameWon = false;
+    this.addToHistory = true;
     this.isResetModalOpen = true;
   }
 
@@ -79,6 +192,17 @@ export class AppComponent implements OnInit {
   }
 
   confirmReset() {
+    if (this.addToHistory) {
+      const newItem: GameHistoryItem = {
+        id: Date.now().toString() + Math.random().toString(36).substring(2, 9),
+        date: new Date().toLocaleDateString(),
+        xsCount: this.xsCount,
+        won: this.gameWon
+      };
+      this.gameHistory.unshift(newItem);
+      this.saveHistory();
+    }
+
     this.stateData = {};
     this.guardedStates = {};
     this.rounds = Array(8).fill(false);
@@ -90,6 +214,7 @@ export class AppComponent implements OnInit {
     this.saveState();
     this.closeResetModal();
   }
+
 
   getValidOptionsForState(state: string): string[] {
     const neighbors = stateAdjacencies[ state ] || [];
