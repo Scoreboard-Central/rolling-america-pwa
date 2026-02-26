@@ -58,6 +58,11 @@ export class AppComponent implements OnInit {
   currentEditTarget: {type: 'state' | 'ability' | 'xs', key: string, index?: number} | null = null;
   validOptions: string[] = [ '1', '2', '3', '4', '5', '6' ];
 
+  readonly allDiceColors = ['orange', 'blue', 'purple', 'green', 'red', 'yellow', 'white'];
+  availableDice: string[] = [...this.allDiceColors];
+  activeDice: { color: string, value: number | null }[] = [];
+  diceState: 'start' | 'selected' | 'rolled' | 'round_end' = 'start';
+
   // Game State
   stateData: {[ key: string ]: string} = {};
   guardedStates: {[ key: string ]: boolean} = {};
@@ -78,6 +83,43 @@ export class AppComponent implements OnInit {
     return Object.values(this.stateData).filter(v => v === 'X').length;
   }
 
+  // Dice Mechanics
+  selectDice() {
+    if (this.availableDice.length < 2) return;
+    
+    const selected = [];
+    for (let i = 0; i < 2; i++) {
+        const randIndex = Math.floor(Math.random() * this.availableDice.length);
+        selected.push(this.availableDice.splice(randIndex, 1)[0]);
+    }
+    this.activeDice = [
+        { color: selected[0], value: null },
+        { color: selected[1], value: null }
+    ];
+    this.diceState = 'selected';
+    this.saveState();
+  }
+
+  rollDice() {
+    this.activeDice.forEach(die => {
+        die.value = Math.floor(Math.random() * 6) + 1;
+    });
+    
+    if (this.availableDice.length === 1) {
+        this.diceState = 'round_end';
+    } else {
+        this.diceState = 'rolled';
+    }
+    this.saveState();
+  }
+
+  nextRound() {
+    this.availableDice = [...this.allDiceColors];
+    this.activeDice = [];
+    this.diceState = 'start';
+    this.saveState();
+  }
+
   ngOnInit() {
     this.loadState();
 
@@ -91,7 +133,10 @@ export class AppComponent implements OnInit {
       stateData: this.stateData,
       guardedStates: this.guardedStates,
       rounds: this.rounds,
-      abilities: this.abilities
+      abilities: this.abilities,
+      availableDice: this.availableDice,
+      activeDice: this.activeDice,
+      diceState: this.diceState
     };
     localStorage.setItem('rollingAmericaState', JSON.stringify(saveData));
   }
@@ -108,6 +153,9 @@ export class AppComponent implements OnInit {
         guard: [ '', '', '' ],
         dupe: [ '', '', '' ]
       };
+      this.availableDice = parsed.availableDice || [...this.allDiceColors];
+      this.activeDice = parsed.activeDice || [];
+      this.diceState = parsed.diceState || 'start';
     }
   }
 
@@ -218,6 +266,9 @@ export class AppComponent implements OnInit {
       guard: [ '', '', '' ],
       dupe: [ '', '', '' ]
     };
+    this.availableDice = [...this.allDiceColors];
+    this.activeDice = [];
+    this.diceState = 'start';
     this.saveState();
     this.closeResetModal();
   }
