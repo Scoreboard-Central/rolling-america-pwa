@@ -3,7 +3,7 @@ import {RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
-import {stateAdjacencies} from './map-data';
+import {stateAdjacencies, stateNames} from './map-data';
 
 export interface GameHistoryItem {
   id: string;
@@ -20,6 +20,13 @@ export interface GameHistoryItem {
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+  get currentModalTitle(): string {
+    if (this.currentEditTarget?.type === 'state') {
+      return stateNames[this.currentEditTarget.key] || 'SELECT VALUE';
+    }
+    return 'SELECT VALUE';
+  }
+
   title = 'rolling-america-pwa';
 
   // Modal State

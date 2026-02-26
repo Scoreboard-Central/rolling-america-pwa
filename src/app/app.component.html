@@ -5208,7 +5208,8 @@
     <div
       class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl p-6 border-[3px] border-slate-600 dark:border-slate-500 max-w-[320px] w-full"
       (click)="$event.stopPropagation()">
-      <h2 class="text-center font-bold text-xl text-slate-900 dark:text-slate-200 mb-4 tracking-wide">SELECT VALUE</h2>
+      <h2 class="text-center font-bold text-xl text-slate-900 dark:text-slate-200 mb-4 tracking-wide uppercase">{{
+        currentModalTitle }}</h2>
 
       @if (currentEditTarget?.type === 'state') {
       @if (guardsUsed < 3 || guardedStates[currentEditTarget!.key]) { <div
