@@ -369,13 +369,25 @@ export class AppComponent implements OnInit {
   // Modal Methods
   openModal(type: 'state' | 'ability' | 'xs', key: string, index?: number) {
     if (type === 'state') {
-      this.validOptions = this.getValidOptionsForState(key);
       this.isGuardChecked = !!this.guardedStates[ key ];
+      this.validOptions = this.isGuardChecked ? [ '1', '2', '3', '4', '5', '6' ] : this.getValidOptionsForState(key);
     } else {
       this.validOptions = [ '1', '2', '3', '4', '5', '6' ];
     }
     this.currentEditTarget = {type, key, index};
     this.isModalOpen = true;
+  }
+
+  onGuardToggle() {
+    if (this.currentEditTarget?.type === 'state') {
+      if (this.isGuardChecked) {
+        // If Guard is checked, all numbers are available
+        this.validOptions = [ '1', '2', '3', '4', '5', '6' ];
+      } else {
+        // If unchecked, recalculate based on neighbors
+        this.validOptions = this.getValidOptionsForState(this.currentEditTarget.key);
+      }
+    }
   }
 
   toggleAbility(type: 'colorChange' | 'guard' | 'dupe', index: number) {
