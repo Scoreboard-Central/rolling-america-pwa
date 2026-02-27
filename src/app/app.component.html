@@ -5422,7 +5422,32 @@
   <div
     class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-3 border-[3px] border-slate-600 dark:border-slate-500 max-w-[800px] w-full max-h-[90vh] flex flex-col"
     (click)="$event.stopPropagation()">
-    <h2 class="text-center font-bold text-2xl text-slate-900 dark:text-slate-200 tracking-wide mb-2">SCORE HISTORY</h2>
+    <div class="relative w-full">
+      <h2 class="text-center font-bold text-2xl text-slate-900 dark:text-slate-200 tracking-wide mb-2">SCORE HISTORY
+      </h2>
+      <button
+        class="absolute top-0 left-0 p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors bg-slate-100 dark:bg-slate-700 rounded-lg shadow-sm"
+        (click)="downloadHistory()" title="Download History">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+          class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+      </button>
+      <button
+        class="absolute top-0 right-0 p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors bg-slate-100 dark:bg-slate-700 rounded-lg shadow-sm"
+        (click)="triggerUpload()" title="Upload History">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+          class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+        </svg>
+      </button>
+      <input type="file" id="history-upload-input" class="hidden" accept=".json" (change)="handleHistoryUpload($event)">
+    </div>
+    @if (historyImportError) {
+    <div class="text-center text-xs font-bold text-red-500 mb-2">{{ historyImportError }}</div>
+    }
 
     <div class="flex bg-slate-100 dark:bg-slate-700 rounded-lg p-0.5 mb-3">
       <button class="flex-1 py-1 text-xs font-bold rounded-md transition-all" [class.bg-white]="historyTab === 'group'"
@@ -5572,6 +5597,34 @@
         class="h-12 bg-purple-600 border-2 border-purple-700 rounded-lg text-lg font-bold text-white hover:bg-purple-700 transition-all select-none active:scale-95 shadow-sm"
         (click)="closeEndGameModal(true)">
         YES
+      </button>
+    </div>
+  </div>
+</div>
+}
+
+<!-- Replace History Confirmation Modal -->
+@if (isReplaceHistoryModalOpen) {
+<div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-[60] p-4"
+  (click)="closeReplaceHistoryModal()">
+  <div
+    class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-6 border-[3px] border-slate-600 dark:border-slate-500 max-w-[320px] w-full"
+    (click)="$event.stopPropagation()">
+    <h2 class="text-center font-bold text-xl text-slate-700 dark:text-slate-200 mb-2 tracking-wide">REPLACE HISTORY?
+    </h2>
+    <p class="text-center text-slate-600 dark:text-slate-400 mb-6 font-medium leading-relaxed text-sm">Are you sure you
+      want to overwrite your current history with the uploaded file? This action cannot be undone.</p>
+
+    <div class="grid grid-cols-2 gap-3">
+      <button
+        class="h-12 bg-slate-100 dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 rounded-lg text-lg font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all select-none active:scale-95 shadow-sm"
+        (click)="closeReplaceHistoryModal()">
+        CANCEL
+      </button>
+      <button
+        class="h-12 bg-blue-600 border-2 border-blue-700 rounded-lg text-lg font-bold text-white hover:bg-blue-700 transition-all select-none active:scale-95 shadow-sm"
+        (click)="confirmReplaceHistory()">
+        REPLACE
       </button>
     </div>
   </div>

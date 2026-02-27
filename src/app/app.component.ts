@@ -40,8 +40,11 @@ export class AppComponent implements OnInit {
   isDeleteModalOpen = false;
   isEndGameModalOpen = false;
   isRulesModalOpen = false;
+  isReplaceHistoryModalOpen = false;
   lastToggledRoundIndex: number | null = null;
   gameToDeleteId: string | null = null;
+  pendingHistoryImport: GameHistoryItem[] | null = null;
+  historyImportError = '';
 
   get totalWins(): number {
     return this.groupGames.filter(g => g.won).length;
@@ -283,6 +286,65 @@ export class AppComponent implements OnInit {
       this.saveHistory();
     }
     this.cancelDelete();
+  }
+
+  downloadHistory() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.gameHistory, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "rolling_america_history.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
+
+  triggerUpload() {
+    document.getElementById('history-upload-input')?.click();
+  }
+
+  handleHistoryUpload(event: any) {
+    const file = event.target.files?.[ 0 ];
+    if (!file) return;
+
+    this.historyImportError = '';
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const content = e.target?.result as string;
+        const parsed = JSON.parse(content);
+
+        // Basic validation
+        if (!Array.isArray(parsed)) throw new Error("File must be an array of game records.");
+        if (parsed.length > 0) {
+          const sample = parsed[ 0 ];
+          if (!sample.id || sample.xsCount === undefined || sample.won === undefined) {
+            throw new Error("Invalid history record format.");
+          }
+        }
+
+        this.pendingHistoryImport = parsed as GameHistoryItem[];
+        this.isReplaceHistoryModalOpen = true;
+      } catch (err) {
+        this.historyImportError = `Invalid format: ${(err as Error).message}`;
+      }
+
+      // Reset input so the same file can be uploaded again if needed
+      event.target.value = '';
+    };
+    reader.readAsText(file);
+  }
+
+  closeReplaceHistoryModal() {
+    this.isReplaceHistoryModalOpen = false;
+    this.pendingHistoryImport = null;
+  }
+
+  confirmReplaceHistory() {
+    if (this.pendingHistoryImport) {
+      this.gameHistory = this.pendingHistoryImport;
+      this.saveHistory();
+    }
+    this.closeReplaceHistoryModal();
   }
 
   openSettingsModal() {
