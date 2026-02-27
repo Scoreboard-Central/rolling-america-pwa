@@ -11,6 +11,7 @@ export interface GameHistoryItem {
   xsCount: number;
   won: boolean;
   isSolo?: boolean;
+  cheatsUsed?: number;
 }
 
 @Component({
@@ -60,31 +61,40 @@ export class AppComponent implements OnInit {
     return this.gameHistory.filter(g => g.isSolo);
   }
 
-  get bestSoloScore(): number | null {
-    const scores = this.soloGames.map(g => g.xsCount);
-    return scores.length > 0 ? Math.min(...scores) : null;
+  get statesMarkedCount(): number {
+    return Object.values(this.stateData).filter(v => v !== '').length;
+  }
+
+  get bestSoloGame(): GameHistoryItem | null {
+    if (this.soloGames.length === 0) return null;
+    return this.soloGames.reduce((best, current) => {
+      if (current.xsCount < best.xsCount) return current;
+      if (current.xsCount === best.xsCount && (current.cheatsUsed || 0) < (best.cheatsUsed || 0)) return current;
+      return best;
+    });
   }
 
   isOverallBest(game: GameHistoryItem): boolean {
     if (!game.isSolo) return false;
-    const best = this.bestSoloScore;
-    // If the game is the current best, it gets the overall best marker.
-    // If multiple games are tied for the best, they all get the marker.
-    return best !== null && game.xsCount === best;
+    const best = this.bestSoloGame;
+    return best !== null && game.xsCount === best.xsCount && (game.cheatsUsed || 0) === (best.cheatsUsed || 0);
   }
 
   wasBestAtTheTime(game: GameHistoryItem): boolean {
     if (!game.isSolo) return false;
-    // gameHistory is newest-first (index 0 is newest)
     const gameIndex = this.gameHistory.indexOf(game);
     if (gameIndex === -1) return false;
 
-    // Older games have a higher index
     const olderGames = this.gameHistory.slice(gameIndex + 1).filter(g => g.isSolo);
-    if (olderGames.length === 0) return true; // First solo game ever is inherently best at its time
+    if (olderGames.length === 0) return true;
 
     const bestOlderScore = Math.min(...olderGames.map(g => g.xsCount));
-    return game.xsCount <= bestOlderScore; // <= means tying the record also gets the marker
+    const bestOlderGames = olderGames.filter(g => g.xsCount === bestOlderScore);
+    const bestOlderCheats = Math.min(...bestOlderGames.map(g => g.cheatsUsed || 0));
+
+    if (game.xsCount < bestOlderScore) return true;
+    if (game.xsCount === bestOlderScore && (game.cheatsUsed || 0) <= bestOlderCheats) return true;
+    return false;
   }
 
   // Theme & History
@@ -156,6 +166,10 @@ export class AppComponent implements OnInit {
   }
 
   nextRound() {
+    const nextUnchecked = this.rounds.findIndex(r => !r);
+    if (nextUnchecked !== -1) {
+      this.toggleRound(nextUnchecked);
+    }
     this.availableDice = [ ...this.allDiceColors ];
     this.activeDice = [];
     this.diceState = 'start';
@@ -308,12 +322,18 @@ export class AppComponent implements OnInit {
 
   confirmReset() {
     if (this.addToHistory) {
+      const cheatsUsedCount =
+        this.abilities.colorChange.filter(c => c === 'X').length +
+        this.abilities.guard.filter(c => c === 'X').length +
+        this.abilities.dupe.filter(c => c === 'X').length;
+
       const newItem: GameHistoryItem = {
         id: Date.now().toString() + Math.random().toString(36).substring(2, 9),
         date: new Date().toLocaleDateString(),
         xsCount: this.xsCount,
         won: this.gameWon,
-        isSolo: this.isSoloGame
+        isSolo: this.isSoloGame,
+        cheatsUsed: cheatsUsedCount
       };
       this.gameHistory.unshift(newItem);
       this.saveHistory();

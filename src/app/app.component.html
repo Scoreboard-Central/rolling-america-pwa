@@ -46,6 +46,12 @@
     <div
       class="flex-grow flex flex-col justify-center items-center p-1 sm:p-2 lg:p-4 min-w-0 bg-white dark:bg-slate-900 relative">
 
+      <!-- States Marked Counter -->
+      <div
+        class="absolute top-2 left-2 sm:top-4 sm:left-4 text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 z-20 select-none">
+        States marked: {{ statesMarkedCount }}
+      </div>
+
       <!-- Action Buttons (Settings & History) -->
       <div class="absolute bottom-1 right-1 sm:bottom-4 sm:right-4 flex flex-col items-end gap-1.5 sm:gap-3 z-20">
         <button
@@ -5442,7 +5448,8 @@
     </div>
     } @else {
     <div class="text-center text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 tracking-wide uppercase">
-      Best Score: <span class="text-purple-600 dark:text-purple-400">{{ bestSoloScore !== null ? bestSoloScore + " X's"
+      Best Score: <span class="text-purple-600 dark:text-purple-400">{{ bestSoloGame !== null ? bestSoloGame.xsCount + "
+        X's"
         : '--' }}</span>
     </div>
     }
@@ -5463,6 +5470,13 @@
               <span class="font-black text-base text-slate-900 dark:text-slate-200">
                 {{ game.xsCount }} <span class="text-xs font-bold text-slate-900 dark:text-slate-200">X's</span>
               </span>
+              @if (game.cheatsUsed !== undefined) {
+              <span
+                class="px-2 py-0.5 rounded text-[9px] font-black bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-400"
+                title="Cheats Used">
+                🛠️ {{ game.cheatsUsed }}
+              </span>
+              }
               @if (historyTab === 'group') {
               @if (game.won) {
               <span
