@@ -1,4 +1,6 @@
-<div class="wave-bg h-[100dvh] w-screen overflow-hidden flex flex-row items-center justify-center sm:p-2">
+<ion-app>
+  <ion-content [scrollY]="false" [scrollX]="false" class="ion-no-padding">
+    <div class="wave-bg h-[100dvh] w-screen overflow-hidden flex flex-row items-center justify-center sm:p-2">
   <div
     class="w-full h-full flex flex-row bg-white dark:bg-slate-900 dark:bg-slate-900 overflow-hidden shadow-2xl sm:border-2 border-slate-300 dark:border-slate-600 dark:border-slate-400 dark:border-slate-600 dark:border-slate-400 dark:border-slate-400 dark:border-slate-500">
 
@@ -46,12 +48,6 @@
     <div
       class="flex-grow flex flex-col justify-center items-center p-1 sm:p-2 lg:p-4 min-w-0 bg-white dark:bg-slate-900 relative">
 
-      <!-- States Marked Counter -->
-      <div
-        class="absolute top-2 left-2 sm:top-4 sm:left-4 text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 z-20 select-none">
-        States marked: {{ statesMarkedCount }}
-      </div>
-
       <!-- Action Buttons (Settings & History) -->
       <div class="absolute bottom-1 right-1 sm:bottom-4 sm:right-4 flex flex-col items-end gap-1.5 sm:gap-3 z-20">
         <button
@@ -98,10 +94,14 @@
 
 
       <!-- Title (Centered) -->
-      <div class="flex flex-col items-center text-center w-full mb-[-5px] sm:mb-[-15px] z-10">
+      <div class="flex flex-col items-center text-center w-full mb-1 sm:mb-2 z-10">
         <h1
-          class="text-lg sm:text-2xl lg:text-4xl font-bold tracking-widest text-[#414E69] dark:text-slate-200 dark:text-slate-200 mb-0 font-['Century_Gothic'] leading-tight">
+          class="text-lg sm:text-2xl lg:text-4xl font-bold tracking-widest text-[#414E69] dark:text-slate-200 mb-0 font-['Century_Gothic'] leading-tight">
           ROLLING AMERICA</h1>
+        <!-- States Marked Counter -->
+        <span class="text-[9px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 select-none">
+          States marked: {{ statesMarkedCount }}
+        </span>
       </div>
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1008 612"
         class="w-full h-full max-h-[85vh]" style="object-fit: contain;">
@@ -5758,3 +5758,6 @@
   </div>
 </div>
 }
+</div>
+  </ion-content>
+</ion-app>

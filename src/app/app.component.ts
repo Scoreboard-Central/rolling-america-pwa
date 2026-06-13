@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import { IonApp, IonContent } from '@ionic/angular/standalone';
 
 import {stateAdjacencies, stateNames} from './map-data';
 
@@ -17,7 +18,7 @@ export interface GameHistoryItem {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ RouterOutlet, FormsModule, CommonModule ],
+  imports: [ RouterOutlet, FormsModule, CommonModule, IonApp, IonContent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
