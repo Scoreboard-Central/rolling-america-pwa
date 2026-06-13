@@ -105,9 +105,25 @@ try {
   console.log('Compiling native Android AAB (gradlew bundleRelease)...');
   execSync(`${gradlewCmd} bundleRelease`, { cwd: path.join(rootDir, 'android'), stdio: 'inherit' });
 
+  // 6. Sign the release AAB bundle if keystore exists
+  const keystorePath = path.join(rootDir, 'android/app/release.keystore');
+  const aabPath = path.join(rootDir, 'android/app/build/outputs/bundle/release/app-release.aab');
+  if (fs.existsSync(keystorePath)) {
+    console.log('Signing Android App Bundle (AAB)...');
+    const keystorePassword = process.env.ANDROID_KEYSTORE_PASSWORD || '159b8cc961f63339';
+    const keystoreAlias = 'rolling-key';
+    try {
+      execSync(`jarsigner -sigalg SHA256withRSA -digestalg SHA-256 -keystore "${keystorePath}" -storepass "${keystorePassword}" "${aabPath}" "${keystoreAlias}"`, { stdio: 'inherit' });
+      console.log('AAB signed successfully.');
+    } catch (signErr) {
+      console.warn('Warning: Failed to sign AAB with jarsigner:', signErr.message);
+    }
+  } else {
+    console.warn(`Warning: Keystore not found at ${keystorePath}. Skipping signing step.`);
+  }
+
   console.log('\n--- ANDROID BUILD SUCCESSFUL ---');
   const apkPath = path.join(rootDir, 'android/app/build/outputs/apk/debug/app-debug.apk');
-  const aabPath = path.join(rootDir, 'android/app/build/outputs/bundle/release/app-release.aab');
 
   if (fs.existsSync(apkPath)) {
     console.log(`\nBuilt APK is available at:\n${apkPath}`);
