@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-IMAGE_PATH = "/Users/blakelamb/.gemini/antigravity/brain/e84121eb-71b1-41b3-9479-f577ce11f661/rolling_america_icon_1781337619383.png"
+IMAGE_PATH = "/Users/blakelamb/.gemini/antigravity/brain/e84121eb-71b1-41b3-9479-f577ce11f661/rolling_america_circle_icon.png"
 out_dir = "src/assets/icons"
 os.makedirs(out_dir, exist_ok=True)
 
