@@ -8,8 +8,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         def runNumber = System.getenv("GITHUB_RUN_NUMBER") ? System.getenv("GITHUB_RUN_NUMBER").toInteger() : 0
-        versionCode 13 + runNumber
-        versionName "0.0.12" + (runNumber > 0 ? ".${runNumber}" : "")
+        versionCode 14 + runNumber
+        versionName "0.0.13" + (runNumber > 0 ? ".${runNumber}" : "")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
